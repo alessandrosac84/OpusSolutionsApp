@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
     <!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
-    <title layout:title-pattern="$LAYOUT_TITLE :: $CONTENT_TITLE">Employe</title>
+    <title layout:title-pattern="$LAYOUT_TITLE :: $CONTENT_TITLE">OpusSolutions</title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
 
@@ -72,9 +72,9 @@
     <header class="main-header">
         <!-- Logo -->
         <a href="#" th:href="@{/}" class="logo">
-            <span class="logo-mini"><b>A</b>D</span>
+            <span class="logo-mini"><b>O</b>S</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>APLIKASI</b>Karyawan</span>
+            <span class="logo-lg"><b>OPUS</b>Solutions</span>
         </a>
 
         <!-- Header Navbar -->
@@ -148,34 +148,34 @@
                                 </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li sec:authorize="hasRole('MASTER_KARYAWAN')"><a th:href="@{/karyawan/list}">Karyawan</a></li>
-                        <li sec:authorize="hasRole('MASTER_ALAMAT')"><a th:href="@{/alamat/list}">Alamat</a></li>
+                        <li sec:authorize="hasRole('MASTER_KARYAWAN')"><a th:href="@{/karyawan/list}">Empregado</a></li>
+                        <li sec:authorize="hasRole('MASTER_ALAMAT')"><a th:href="@{/alamat/list}">Endereço</a></li>
 
                     </ul>
                 </li>
 
                 <li class="treeview" id="kegiatandosen" sec:authorize="hasRole('KEGIATAN')">
-                    <a href="#"><i class="fa fa-inbox"></i> <span>Kegiatan</span>
+                    <a href="#"><i class="fa fa-inbox"></i> <span>Atividade</span>
                         <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                     </a>
 
                     <ul class="treeview-menu">
-                        <li><a th:href="@{/kegiatan/kbm/list}">Halo</a></li>
+                        <li><a th:href="@{/kegiatan/kbm/list}">Olá</a></li>
 
                     </ul>
                 </li>
 
                 <li class="treeview" id="laporan">
-                    <a href="#"><i class="fa fa-book"></i> <span>Laporan</span>
+                    <a href="#"><i class="fa fa-book"></i> <span>Report</span>
                         <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Laporan 1</a></li>
-                        <li><a href="#">Laporan 2</a></li>
+                        <li><a href="#">Report 1</a></li>
+                        <li><a href="#">Report 2</a></li>
                     </ul>
                 </li>
 
@@ -191,15 +191,15 @@
         <section class="content-header" layout:fragment="breadcrumb"></section>
         <!-- Content Header (Page header) -->
         <!-- Main content -->
-        <section class="content" layout:fragment="content">Di sini content utama</section>
+        <section class="content" layout:fragment="content">Aqui está o conteúdo principal</section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
     <!-- Main Footer -->
     <footer class="main-footer">
-        <strong> &copy; 2017
-            <script>new Date().getFullYear() > 2017 && document.write("-" + new Date().getFullYear());</script>
-            , Company.</strong>
+        <strong> &copy; 2018
+            <script>new Date().getFullYear() > 2018 && document.write("-" + new Date().getFullYear());</script>
+            , OpusSolutions.</strong>
     </footer>
     <div class="control-sidebar-bg"></div>
 </div>

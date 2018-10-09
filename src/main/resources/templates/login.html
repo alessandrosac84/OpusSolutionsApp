@@ -26,24 +26,24 @@
     <div class="login-logo"></div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Efetue o Login</p>
         <form action="#" th:action="@{/login}" method="post">
-            <p th:if="${errors}">invalid user or password</p>
+            <p th:if="${errors}">Usuário ou Senha inválidos</p>
             <div class="form-group has-feedback">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                <input type="text" name="username" class="form-control" placeholder="Username"/>
+                <input type="text" name="username" class="form-control" placeholder="Usuário"/>
             </div>
             <div class="form-group has-feedback">
                 <input type="password" name="password" class="form-control" data-toggle="password"
-                       placeholder="Kata sandi"/>
+                       placeholder="Senha"/>
             </div>
             <div class="row">
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
                 </div>
 
                 <div class="col-xs-8 text-right">
-                    <a th:href="@{/}" style="line-height:30px">Lupa Password</a>
+                    <a th:href="@{/}" style="line-height:30px">Esqueci a Senha</a>
                 </div>
             </div>
         </form>

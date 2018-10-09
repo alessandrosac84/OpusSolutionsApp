@@ -94,10 +94,10 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/forgot_password/**").permitAll()
                 .antMatchers("/reset_password/**").permitAll()
 
-                .antMatchers("/kegiatan/**").hasAnyRole("KEGIATAN_ALL")
+                .antMatchers("/atividade/**").hasAnyRole("ATIVIDADE_ALL")
 
                 .antMatchers("/institusi/**").hasAnyRole("MASTER_INSTITUSI")
-                .antMatchers("/karyawan/**").hasAnyRole("MASTER_KARYAWAN")
+                .antMatchers("/empregado/**").hasAnyRole("MASTER_EMPREGADO")
                 .antMatchers("/jenissurat/**").hasAnyRole("MASTER_JENIS_SURAT")
                 .antMatchers("/jabatan/**").hasAnyRole("MASTER_JABATAN")
                 .antMatchers("/dosen/**").hasAnyRole("MASTER_DOSEN")
