@@ -1,14 +1,14 @@
 <!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
 <head>
-    <title>Karyawan</title>
+    <title>Empregado</title>
 </head>
 <body>
 <div layout:fragment="breadcrumb">
-    <h1>Data Karyawan</h1>
+    <h1>Dados do Empregado</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Data Karyawan</li>
+        <li class="active">Dados do Empregado</li>
     </ol>
 </div>
 <div layout:fragment="content">
@@ -20,31 +20,31 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" th:object="${karyawan}" method="post">
+                <form role="form" th:object="${empregado}" method="post">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="nama">Nama</label>
+                            <label for="nome">Nome</label>
                             <input type="text"
-                                   th:field="*{nama}"
-                                   name="nama" class="form-control" id="nama" placeholder="Nama" />
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('nama')}" th:errors="*{nama}">
-                                Pesan error nanti di sini
+                                   th:field="*{nome}"
+                                   name="nome" class="form-control" id="nome" placeholder="Nome" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+                                Mensagem de erro mais tarde aqui
                             </label>
                         </div>
                         <div class="form-group">
-                            <label for="nama">Keterangan</label>
+                            <label for="nome">Informação</label>
                             <input type="text"
-                                   th:field="*{keterangan}"
-                                   name="keterangan" class="form-control" id="keterangan" placeholder="Keterangan" />
-                            <label class="control-label error-label"  th:if="${#fields.hasErrors('keterangan')}"th:errors="*{keterangan}">
-                                Pesan error nanti di sini
+                                   th:field="*{info}"
+                                   name="info" class="form-control" id="info" placeholder="Informação" />
+                            <label class="control-label error-label"  th:if="${#fields.hasErrors('info')}"th:errors="*{info}">
+                                Mensagem de erro mais tarde aqui
                             </label>
                         </div>
                         <div class="form-group">
-                            <a th:href="@{/karyawan/list}" class="btn btn-default" role="button" title="Back list">
-                                <span aria-hidden="true"></span>Batal
+                            <a th:href="@{/empregado/list}" class="btn btn-default" role="button" title="Lista de Volta">
+                                <span aria-hidden="true"></span>Cancelar
                             </a>
-                            <button type="submit" class="box-title btn btn-primary" title="Save Data">Simpan</button>
+                            <button type="submit" class="box-title btn btn-primary" title="Salvar Dados">Salvar</button>
                         </div>
                     </div>
                     <!-- /.box-body -->

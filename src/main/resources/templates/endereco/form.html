@@ -1,14 +1,14 @@
 <!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
 <head>
-    <title>Data Alamat</title>
+    <title>Dados do Endereço</title>
 </head>
 <body>
 <div layout:fragment="breadcrumb">
-    <h1>Alamat</h1>
+    <h1>Endereço</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Data Alamat</li>
+        <li class="active">Dados do Endereço</li>
     </ol>
 </div>
 <div layout:fragment="content">
@@ -18,46 +18,46 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">&nbsp;</h3>
                 </div>
-                <form role="form" th:object="${alamat}" method="post">
+                <form role="form" th:object="${endereco}" method="post">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="kode">Kategori Kegiatan</label>
+                            <label for="kode">Categoria da Atividade</label>
                             <select
                                     class="selectpicker form-control"
                                     data-live-search="true"
                                     data-size="10"
                                     title="Please Select ..."
-                                    th:field="*{karyawan}">
-                                <option th:each="p : ${karyawan}"
+                                    th:field="*{empregado}">
+                                <option th:each="p : ${empregado}"
                                         th:value="${p.id}"
-                                        th:text="${p.nama}">Pilihan karyawan
+                                        th:text="${p.nome}">Escolha do Empregado
                                 </option>
                             </select>
-                            <label class="control-label error-label" th:errors="*{karyawan}">
-                                Pesan error nanti di sini
+                            <label class="control-label error-label" th:errors="*{empregado}">
+                                Mensagem de erro mais tarde aqui
                             </label>
                         </div>
                         <div class="form-group">
-                            <label for="nama">Komponen Nama</label>
-                            <input type="text" class="form-control" th:field="*{nama}" id="nama" name="nama"
-                                   placeholder="komponen kegiatan"/>
-                            <label class="control-label error-label" th:errors="*{nama}">
-                                Pesan error nanti di sini
+                            <label for="nama">Componente nome</label>
+                            <input type="text" class="form-control" th:field="*{nome}" id="nama" name="nome"
+                                   placeholder="componente de atividade"/>
+                            <label class="control-label error-label" th:errors="*{nome}">
+                                Mensagem de erro mais tarde aqui
                             </label>
                         </div>
                         <div class="form-group">
-                            <label for="alamat">Keterangan Alamat</label>
-                            <input type="text" class="form-control" th:field="*{alamat}" id="alamat" name="alamat"
-                                   placeholder="Bukti Kegiatan"/>
-                            <label class="control-label error-label" th:errors="*{alamat}">
-                                Pesan error nanti di sini
+                            <label for="alamat">Endereço descrição</label>
+                            <input type="text" class="form-control" th:field="*{endereco}" id="endereco" name="endereco"
+                                   placeholder="Prova de Atividade"/>
+                            <label class="control-label error-label" th:errors="*{endereco}">
+                                Mensagem de erro mais tarde aqui
                             </label>
                         </div>
                         <div class="form-group">
-                            <a th:href="@{/alamat/list}" class="btn btn-default" role="button" title="Back list">
-                                <span aria-hidden="true"></span>Batal
+                            <a th:href="@{/endereco/list}" class="btn btn-default" role="button" title="Back list">
+                                <span aria-hidden="true"></span>Cancelar
                             </a>
-                            <button type="submit" class="box-title btn btn-primary" title="Save Data">Simpan</button>
+                            <button type="submit" class="box-title btn btn-primary" title="Save Data">Salvar</button>
                         </div>
                     </div>
 

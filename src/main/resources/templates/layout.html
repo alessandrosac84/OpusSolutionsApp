@@ -141,20 +141,20 @@
             <ul class="sidebar-menu">
                 <li class="header">Menu</li>
 
-                <li class="treeview" id="datamaster" sec:authorize="hasRole('KARYAWAN_ALL')">
+                <li class="treeview" id="datamaster" sec:authorize="hasRole('EMPREGADOS_ALL')">
                     <a href="#"><i class="fa fa-th"></i> <span>Data Master</span>
                         <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li sec:authorize="hasRole('MASTER_KARYAWAN')"><a th:href="@{/karyawan/list}">Empregado</a></li>
-                        <li sec:authorize="hasRole('MASTER_ALAMAT')"><a th:href="@{/alamat/list}">Endereço</a></li>
+                        <li sec:authorize="hasRole('MASTER_EMPREGADO')"><a th:href="@{/empregado/list}">Empregado</a></li>
+                        <li sec:authorize="hasRole('MASTER_ENDERECO')"><a th:href="@{/endereco/list}">Endereço</a></li>
 
                     </ul>
                 </li>
 
-                <li class="treeview" id="kegiatandosen" sec:authorize="hasRole('KEGIATAN')">
+                <li class="treeview" id="kegiatandosen" sec:authorize="hasRole('ATIVIDADE')">
                     <a href="#"><i class="fa fa-inbox"></i> <span>Atividade</span>
                         <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -162,7 +162,7 @@
                     </a>
 
                     <ul class="treeview-menu">
-                        <li><a th:href="@{/kegiatan/kbm/list}">Olá</a></li>
+                        <li><a th:href="@{/atividade/kbm/list}">Olá</a></li>
 
                     </ul>
                 </li>

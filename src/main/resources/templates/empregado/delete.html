@@ -1,14 +1,14 @@
 <!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
 <head>
-    <title>Hapus Data</title>
+    <title>Excluir Dados</title>
 </head>
 <body>
 <div layout:fragment="breadcrumb">
-    <h1>Hapus Data Karyawan?</h1>
+    <h1>Excluir dados do empregado?</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Hapus Data Karyawan</li>
+        <li class="active">Excluir dados do empregado</li>
     </ol>
 </div>
 <div layout:fragment="content">
@@ -20,31 +20,31 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" th:object="${karyawan}" method="post">
+                <form role="form" th:object="${empregado}" method="post">
 
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="nama">Nama</label>
+                            <label for="nome">Nome</label>
                             <input type="text"
-                                   th:field="*{nama}"
-                                   name="nama" class="form-control" id="nama" placeholder="Nama" disabled/>
+                                   th:field="*{nome}"
+                                   name="nome" class="form-control" id="nome" placeholder="Nome" disabled/>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="nama">Keterangan</label>
+                            <label for="nome">Informação</label>
                             <input type="text"
-                                   th:field="*{keterangan}"
-                                   name="keterangan" class="form-control" id="keterangan" placeholder="Keterangan"
+                                   th:field="*{info}"
+                                   name="info" class="form-control" id="info" placeholder="Informação"
                                    disabled/>
                         </div>
 
 
                         <div class="form-group">
-                            <a th:href="@{/karyawan/list}" class="btn btn-default" role="button" title="Back list">
-                                <span aria-hidden="true"></span>Batal
+                            <a th:href="@{/empregado/list}" class="btn btn-default" role="button" title="Back list">
+                                <span aria-hidden="true"></span>Cancelar
                             </a>
-                            <button type="submit" class="btn btn-danger" title="Delete Data">Hapus</button>
+                            <button type="submit" class="btn btn-danger" title="Deletar Dados">Excluir</button>
                         </div>
                     </div>
                     <!-- /.box-body -->

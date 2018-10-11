@@ -25,3 +25,8 @@ INSERT INTO c_security_user (id, active, username, id_role) VALUES
 INSERT INTO c_security_user_password (id_user, password) VALUES
 ('admin', '$2a$10$wT/obdcvI07jSor8roN3NeuWhEdlarvunJ14ZOAFdo1g/lZ1uHbGe');
 
+
+
+SENHAS GERADS PELO SITE  Bcrypt Password Generator
+
+https://www.browserling.com/tools/bcrypt
