@@ -142,13 +142,14 @@
                 <li class="header">Menu</li>
 
                 <li class="treeview" id="datamaster" sec:authorize="hasRole('EMPREGADOS_ALL')">
-                    <a href="#"><i class="fa fa-th"></i> <span>Data Master</span>
+                    <a href="#"><i class="fa fa-th"></i> <span>Cadastros</span>
                         <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li sec:authorize="hasRole('MASTER_EMPREGADO')"><a th:href="@{/empregado/list}">Empregado</a></li>
+                    	<li sec:authorize="hasRole('MASTER_EMPREGADO')"><a th:href="@{/cliente/list}">Clientes</a></li>
+                        <li sec:authorize="hasRole('MASTER_EMPREGADO')"><a th:href="@{/empregado/list}">Funcionários</a></li>
                         <li sec:authorize="hasRole('MASTER_ENDERECO')"><a th:href="@{/endereco/list}">Endereço</a></li>
 
                     </ul>
