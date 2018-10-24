@@ -1,0 +1,73 @@
+<!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <title>Excluir Dados</title>
+</head>
+<body>
+<div layout:fragment="breadcrumb">
+    <h1>Excluir dados do cliente?</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Excluir dados do cliente</li>
+    </ol>
+</div>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">&nbsp;</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" th:object="${cliente}" method="post">
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text"
+                                   th:field="*{nomeCliente}"
+                                   name="nome" class="form-control" id="nomeCliente" placeholder="Nome" disabled/>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="nome">Tipo Pessoa</label>
+                            <input type="text"
+                                   th:field="*{tipoPessoa}"
+                                   name="info" class="form-control" id="tipoPessoa" placeholder="Tipo Pessoa"
+                                   disabled/>
+                        </div>
+
+						<div class="form-group">
+                            <label for="nome">CPF</label>
+                            <input type="text"
+                                   th:field="*{cpf}"
+                                   name="info" class="form-control" id="cpf" placeholder="CPF"
+                                   disabled/>
+                        </div>
+
+						<div class="form-group">
+                            <label for="nome">CNPJ</label>
+                            <input type="text"
+                                   th:field="*{cnpj}"
+                                   name="info" class="form-control" id="cnpj" placeholder="CNPJ"
+                                   disabled/>
+                        </div>
+
+                        <div class="form-group">
+                            <a th:href="@{/cliente/list}" class="btn btn-default" role="button" title="Back list">
+                                <span aria-hidden="true"></span>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger" title="Deletar Dados">Excluir</button>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

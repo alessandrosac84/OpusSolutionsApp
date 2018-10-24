@@ -98,6 +98,8 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/institusi/**").hasAnyRole("MASTER_INSTITUSI")
                 .antMatchers("/empregado/**").hasAnyRole("MASTER_EMPREGADO")
+                .antMatchers("/endereco/**").hasAnyRole("MASTER_EMPREGADO")
+                .antMatchers("/cliente/**").hasAnyRole("MASTER_CLIENTE")
                 .antMatchers("/jenissurat/**").hasAnyRole("MASTER_JENIS_SURAT")
                 .antMatchers("/jabatan/**").hasAnyRole("MASTER_JABATAN")
                 .antMatchers("/dosen/**").hasAnyRole("MASTER_DOSEN")
