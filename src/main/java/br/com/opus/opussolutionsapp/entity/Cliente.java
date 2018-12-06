@@ -28,6 +28,24 @@ public class Cliente {
     @Column(nullable = false)
     private String nome;
 
+    @NotNull
+    @NotEmpty
+    @Size(max = 20)
+    @Column(nullable = false)
+    private String tipoPessoa;
+
+    @Size(max = 11)
+    @Column(nullable = true)
+    private String cpf;
+
+    @Size(max = 14)
+    @Column(nullable = true)
+    private String cnpj;  
+    
+    @Size(max = 150)
+    @Column(nullable = true)
+    private String razaoSocial;
+    
 
 	public String getId() {
 		return id;
@@ -43,5 +61,37 @@ public class Cliente {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(String tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
 	}
 }

@@ -44,7 +44,7 @@ public class EnderecoController {
 
 
     @GetMapping("/endereco/form")
-    public String tampilkanForms(@RequestParam(value = "id", required = false) Endereco endereco, Model m) {
+    public String showForm(@RequestParam(value = "id", required = false) Endereco endereco, Model m) {
         if (endereco == null) {
             endereco = new Endereco();
         }
@@ -55,7 +55,7 @@ public class EnderecoController {
 
 
     @PostMapping("/endereco/form")
-    public String simpan(@ModelAttribute @Valid Endereco endereco, BindingResult errors, SessionStatus status) {
+    public String save(@ModelAttribute @Valid Endereco endereco, BindingResult errors, SessionStatus status) {
         if (errors.hasErrors()) {
             return "endereco/form";
         }

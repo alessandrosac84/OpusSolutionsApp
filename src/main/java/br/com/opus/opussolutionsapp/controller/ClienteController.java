@@ -1,5 +1,8 @@
 package br.com.opus.opussolutionsapp.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,10 @@ public class ClienteController {
     @Autowired
     private ClienteDao clienteDao;
 
+    private boolean cpfVisible = false;
+    
+    private boolean cnpjfVisible = false;
+    
 
     @GetMapping("/cliente/list")
     public ModelMap cliente(@PageableDefault(size = 5) Pageable pageable, @RequestParam(name = "value", required = false) String value, Model model){
@@ -40,7 +47,7 @@ public class ClienteController {
 
 
     @GetMapping("/cliente/form")
-    public ModelMap tampilkanForm(@RequestParam(value = "id", required = false) Cliente cliente ) {
+    public ModelMap showForm(@RequestParam(value = "id", required = false) Cliente cliente ) {
         if (cliente == null) {
         	cliente = new Cliente();
         }
@@ -51,7 +58,7 @@ public class ClienteController {
 
 
     @PostMapping("/cliente/form")
-    public String simpan(@Valid @ModelAttribute("cliente") Cliente cliente , BindingResult errors, SessionStatus status) {
+    public String save(@Valid @ModelAttribute("cliente") Cliente cliente , BindingResult errors, SessionStatus status) {
         if (errors.hasErrors()) {
             return "cliente/form";
         }
@@ -85,6 +92,20 @@ public class ClienteController {
         }
         status.setComplete();
         return "redirect:/cliente/list";
+    }
+    
+    
+    public void tipoPessoaChanged(ActionListener event) {
+    	String id = event.toString();
+    	System.out.println(id);
+//    	if(!tipoPessoa.equals("")){
+//    		if(tipoPessoa.equals("FISICA")) {
+//        		this.cpfVisible = true;
+//        	}else {
+//        		this.cnpjfVisible = true;
+//        	}	
+//    	}
+    	
     }
 }
 

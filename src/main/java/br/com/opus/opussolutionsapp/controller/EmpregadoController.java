@@ -37,7 +37,7 @@ public class EmpregadoController {
 
 
     @GetMapping("/empregado/form")
-    public ModelMap tampilkanForm(@RequestParam(value = "id", required = false) Empregado empregado ) {
+    public ModelMap showForm(@RequestParam(value = "id", required = false) Empregado empregado ) {
         if (empregado == null) {
             empregado = new Empregado();
         }
@@ -48,7 +48,7 @@ public class EmpregadoController {
 
 
     @PostMapping("/empregado/form")
-    public String simpan(@Valid @ModelAttribute("empregado") Empregado empregado , BindingResult errors, SessionStatus status) {
+    public String save(@Valid @ModelAttribute("empregado") Empregado empregado , BindingResult errors, SessionStatus status) {
         if (errors.hasErrors()) {
             return "empregado/form";
         }

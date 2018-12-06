@@ -25,21 +25,56 @@
                         <div class="form-group">
                             <label for="nome">Nome</label>
                             <input type="text"
-                                   th:field="*{nomeCliente}"
-                                   name="nome" class="form-control" id="nomeCliente" placeholder="Nome Cliente" />
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('nomeCliente')}" th:errors="*{nomeCliente}">
+                                   th:field="*{nome}"
+                                   name="nome" class="form-control" id="nome" placeholder="Nome Cliente" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
                                 Mensagem de erro mais tarde aqui
                             </label>
                         </div>
+                        
+                        
                         <div class="form-group">
-                            <label for="nome">Tipo Pessoa</label>
-                            <input type="text"
-                                   th:field="*{tipoPessoa}"
-                                   name="info" class="form-control" id="tipoPessoa" placeholder="Tipo Pessoa" />
+                            <label for="tipoPessoa">Tipo Pessoa</label>
+                            <select style="width: 100px;" id="tipoPessoa" name="tipoPessoa" onchange="tipoPessoaChanged();">
+							  <option>SELECIONE</option>
+							  <option value="FISICA">FÍSICA</option>
+							  <option value="JURIDICA">JURÍDICA</option>
+							</select>
                             <label class="control-label error-label"  th:if="${#fields.hasErrors('tipoPessoa')}"th:errors="*{tipoPessoa}">
                                 Mensagem de erro mais tarde aqui
                             </label>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="cpf">CPF</label>
+                            <input type="text"
+                                   th:field="*{cpf}"
+                                   name="cpf" class="form-control" id="cpf" placeholder="CPF" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cnpj">CNPJ</label>
+                            <input type="text"
+                                   th:field="*{cnpj}"
+                                   name="cpf" class="form-control" id="cnpj" placeholder="CNPJ" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="razaoSocial">Razão Social</label>
+                            <input type="text"
+                                   th:field="*{razaoSocial}"
+                                   name="razaoSocial" class="form-control" id="razaoSocial" placeholder="Razão Social" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('razaoSocial')}" th:errors="*{razaoSocial}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                        </div>
+                        
                         <div class="form-group">
                             <a th:href="@{/cliente/list}" class="btn btn-default" role="button" title="Lista de Volta">
                                 <span aria-hidden="true"></span>Cancelar

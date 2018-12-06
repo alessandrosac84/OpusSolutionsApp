@@ -45,8 +45,8 @@
                             <thead>
                             <tr>
                                 <th> No</th>
-                                <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="nnome">Nome</th>
-                                <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="info">Informação
+                                <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="nome">Nome</th>
+                                <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="tipoPessoa">Tipo Pessoa
                                 </th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -55,7 +55,7 @@
                             <tr th:each="st,iter : ${cliente}">
                                 <td th:text="${iter.count}">1</td>
                                 <td th:text="${st.nome}">Posição</td>
-                                <td th:text="${st.info}">Informação</td>
+                                <td th:text="${st.tipoPessoa}">Informação</td>
                                 <td>
                                     <a href="#" class="btn btn-default" th:href="@{/cliente/form(id=${st.id})}"
                                        title="Editar Dados"><span class="glyphicon glyphicon-edit"></span></a>
