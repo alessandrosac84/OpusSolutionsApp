@@ -49,19 +49,21 @@
                                 <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="tipoPessoa">Tipo Pessoa
                                 <th><a class="fa fa-fw fa-sort"><a>CPF
                                 <th><a class="fa fa-fw fa-sort"><a>CNPJ
+                                <th><a class="fa fa-fw fa-sort"><a>Razão Social
                                 </th>
                                 <th>&nbsp;</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="st,iter : ${cliente}">
-                                <td th:text="${iter.count}">1</td>
-                                <td th:text="${st.nome}">Nome</td>
-                                <td th:text="${st.tipoPessoa}">Tipo Pessoa</td>
-                                <td th:text="${st.cpf}">CPF</td>
-                                <td th:text="${st.cnpj}">CNPJ</td>
+                                <td th:text="${iter.count}"></td>
+                                <td th:text="${st.nome}"></td>
+                                <td th:text="${st.tipoPessoa}"></td>
+                                <td th:text="${st.cpf}"></td>
+                                <td th:text="${st.cnpj}"></td>
+                                <td th:text="${st.razaoSocial}"></td>
                                 <td>
-                                    <a href="#" class="btn btn-default" th:href="@{/cliente/form(id=${st.id})}"
+                                    <a href="#" class="btn btn-default" th:href="@{/cliente/edit(id=${st.id}, tipoPessoa=${st.tipoPessoa})}"
                                        title="Editar Dados"><span class="glyphicon glyphicon-edit"></span></a>
                                     <a href="#" class="btn btn-default" th:href="@{/cliente/delete(id=${st.id})}"
                                        title="Deletar Dados"><span class="glyphicon glyphicon-trash"></span></a>

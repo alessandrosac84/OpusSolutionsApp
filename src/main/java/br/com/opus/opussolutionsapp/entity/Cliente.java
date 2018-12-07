@@ -34,11 +34,11 @@ public class Cliente {
     @Column(nullable = false)
     private String tipoPessoa;
 
-    @Size(max = 11)
+    @Size(max = 14)
     @Column(nullable = true)
     private String cpf;
 
-    @Size(max = 14)
+    @Size(max = 18)
     @Column(nullable = true)
     private String cnpj;  
     

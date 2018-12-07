@@ -1,15 +1,13 @@
 <!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
 <head>
-    <title>Cliente</title>
+    <title>Editar Dados</title>
     <script>
-	    function tipoPessoaChanged(){
+    
+    $(window).load(    
+	    function tipoPessoa(){
 	        valorSelecionado = $('#tipoPessoa').val();
-	        
-	        //quando tiver visualizando o formulário o valor fica no campo text;
-	        if(!valorSelecionado){
-	            valorSelecionado = $('#tipoPessoa').text();
-	        }
+	       
 	        switch(valorSelecionado) {
 	            case "FISICA":
 	                $('#group-cpf').show();
@@ -29,18 +27,9 @@
 	                $('#group-razao-social').hide();
 	                break;
 	        }
-	    }
-	    
-	    function formatar(mascara, documento){
-	    	   var i = documento.value.length;
-	    	   var saida = mascara.substring(0,1);
-	    	   var texto = mascara.substring(i)
-	    	  
-	    	   if (texto.substring(0,1) != saida){
-	    	    documento.value += texto.substring(0,1);
-	    	   }  
-	    	  }
+	    });
     </script>
+    
 </head>
 <body>
 <div layout:fragment="breadcrumb">
@@ -71,19 +60,16 @@
                             </label>
                         </div>
                         
-                        
                         <div class="form-group">
                             <label for="tipoPessoa">Tipo Pessoa</label>
-                            <select style="width: 100px;" id="tipoPessoa" name="tipoPessoa" onchange="tipoPessoaChanged();" >
-							  <option></option>
-							  <option value="FISICA">FÍSICA</option>
-							  <option value="JURIDICA">JURÍDICA</option>
-							</select>
-                            <label class="control-label error-label"  th:if="${#fields.hasErrors('tipoPessoa')}"th:errors="*{tipoPessoa}">
+                            <input type="text"
+                                   th:field="*{tipoPessoa}"
+                                   name="tipoPessoa" class="form-control" id="tipoPessoa" placeholder="Tipo Pessoa" disabled/>
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('tipoPessoa')}" th:errors="*{tipoPessoa}">
                                 Mensagem de erro mais tarde aqui
                             </label>
                         </div>
-                        
+                                            
                         <div class="form-group" id="group-cpf" hidden="true">
                             <label for="cpf">CPF</label>
                             <input type="text"
@@ -130,4 +116,3 @@
 </div>
 </body>
 </html>
-

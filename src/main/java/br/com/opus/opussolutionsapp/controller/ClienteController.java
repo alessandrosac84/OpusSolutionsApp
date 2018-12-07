@@ -29,11 +29,6 @@ public class ClienteController {
     @Autowired
     private ClienteDao clienteDao;
 
-    private boolean cpfVisible = false;
-    
-    private boolean cnpjfVisible = false;
-    
-
     @GetMapping("/cliente/list")
     public ModelMap cliente(@PageableDefault(size = 5) Pageable pageable, @RequestParam(name = "value", required = false) String value, Model model){
         if (value != null) {
@@ -44,8 +39,6 @@ public class ClienteController {
         }
     }
 
-
-
     @GetMapping("/cliente/form")
     public ModelMap showForm(@RequestParam(value = "id", required = false) Cliente cliente ) {
         if (cliente == null) {
@@ -53,9 +46,6 @@ public class ClienteController {
         }
         return new ModelMap("cliente", cliente);
     }
-
-
-
 
     @PostMapping("/cliente/form")
     public String save(@Valid @ModelAttribute("cliente") Cliente cliente , BindingResult errors, SessionStatus status) {
@@ -67,16 +57,25 @@ public class ClienteController {
         return "redirect:/cliente/list";
     }
 
-
-
+    @GetMapping("/cliente/edit")
+    public ModelMap edit(@RequestParam(value = "id", required = true) Cliente cliente) {
+        return new ModelMap("cliente", cliente);
+    }
+    
+    @PostMapping("/cliente/edit")
+    public String editConfirm(@Valid @ModelAttribute("cliente") Cliente cliente , BindingResult errors, SessionStatus status) {
+        if (errors.hasErrors()) {
+            return "cliente/edit";
+        }
+        clienteDao.save(cliente);
+        status.setComplete();
+        return "redirect:/cliente/list";
+    }
 
     @GetMapping("/cliente/delete")
     public ModelMap deleteConfirm(@RequestParam(value = "id", required = true) Cliente cliente) {
         return new ModelMap("cliente", cliente);
     }
-
-
-
 
     @PostMapping("/cliente/delete")
     public Object delete(@ModelAttribute Cliente cliente , SessionStatus status) {
@@ -92,20 +91,6 @@ public class ClienteController {
         }
         status.setComplete();
         return "redirect:/cliente/list";
-    }
-    
-    
-    public void tipoPessoaChanged(ActionListener event) {
-    	String id = event.toString();
-    	System.out.println(id);
-//    	if(!tipoPessoa.equals("")){
-//    		if(tipoPessoa.equals("FISICA")) {
-//        		this.cpfVisible = true;
-//        	}else {
-//        		this.cnpjfVisible = true;
-//        	}	
-//    	}
-    	
     }
 }
 
