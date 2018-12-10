@@ -46,6 +46,32 @@ public class Cliente {
     @Column(nullable = true)
     private String razaoSocial;
     
+    @Size(max = 11)
+    @Column(nullable = false)
+    private String status;
+    
+    @Size(max = 14)
+    @Column(nullable = true)
+    private String telefone;
+    
+    @Size(max = 14)
+    @Column(nullable = true)
+    private String celular;
+    
+    @Size(max = 150)
+    @Column(nullable = true)
+    private String email;
+    
+    @Size(max = 10)
+    @Column(nullable = true)
+    private String dataContato;
+    
+    @Size(max = 1)
+    @Column(nullable = true)
+    private String sexo;
+    
+    
+    
 
 	public String getId() {
 		return id;
@@ -94,4 +120,53 @@ public class Cliente {
 	public void setRazaoSocial(String razaoSocial) {
 		this.razaoSocial = razaoSocial;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getDataContato() {
+		return dataContato;
+	}
+
+	public void setDataContato(String dataContato) {
+		this.dataContato = dataContato;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
 }

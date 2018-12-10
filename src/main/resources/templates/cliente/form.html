@@ -82,6 +82,26 @@
                             <label class="control-label error-label"  th:if="${#fields.hasErrors('tipoPessoa')}"th:errors="*{tipoPessoa}">
                                 Mensagem de erro mais tarde aqui
                             </label>
+                            
+                            <label style="padding-left: 40px;" for="status">Status</label >
+	                            <select style="width: 130px;" id="status" name="status" >
+								  <option></option>
+								  <option disabled value="CLIENTE">CLIENTE</option>
+								  <option value="NÃO CLIENTE">NÃO CLIENTE</option>
+								</select>
+	                            <label class="control-label error-label"  th:if="${#fields.hasErrors('status')}"th:errors="*{status}">
+	                                Mensagem de erro mais tarde aqui
+                            </label>
+                            
+                            <label style="padding-left: 40px;" for="sexo">Sexo</label >
+	                            <select style="width: 100px;" id="sexo" name="sexo" >
+								  <option></option>
+								  <option value="M">MASCULINO</option>
+								  <option value="F">FEMININO</option>
+								</select>
+	                            <label class="control-label error-label"  th:if="${#fields.hasErrors('sexo')}"th:errors="*{sexo}">
+	                                Mensagem de erro mais tarde aqui
+                            </label>
                         </div>
                         
                         <div class="form-group" id="group-cpf" hidden="true">
@@ -113,6 +133,47 @@
                                 Mensagem de erro mais tarde aqui
                             </label>
                         </div>
+                       
+                        <div class="form-group" id="group-email">
+                            <label for="email">Email</label>
+                            <input type="text"
+                                   th:field="*{email}"
+                                   name="email" class="form-control" id="email" placeholder="Email"/>
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                        </div>
+                        
+                        <div class="form-group" id="group-telefone">
+                            <label for="telefone">Telefone</label>
+                            <input type="text"
+                                   th:field="*{telefone}" required="true"
+                                   name="telefone" class="form-control" id="telefone" placeholder="Telefone Principal" onkeypress="formatar('## ####-####', this);" maxlength="12" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                        </div>
+                        
+                        <div class="form-group" id="group-celular">
+                            <label for="celular">Celular</label>
+                            <input type="text"
+                                   th:field="*{celular}"
+                                   name="celular" class="form-control" id="celular" placeholder="Celular" onkeypress="formatar('## #####-####', this);" maxlength="13" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                        </div>
+                        
+                        <div class="form-group" id="group-data-contato">
+                            <label for="dataContato">Data para Contato</label>
+                            <input type="text"
+                                   th:field="*{dataContato}"
+                                   name="dataContato" class="form-control" id="dataContato" placeholder="Data para Contato" onkeypress="formatar('##/##/####', this);" maxlength="10" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('dataContato')}" th:errors="*{dataContato}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                        </div>
+                        
                         
                         <div class="form-group">
                             <a th:href="@{/cliente/list}" class="btn btn-default" role="button" title="Lista de Volta">

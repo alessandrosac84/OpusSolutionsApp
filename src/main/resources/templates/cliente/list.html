@@ -45,12 +45,14 @@
                             <thead>
                             <tr>
                                 <th> No</th>
-                                <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="nome">Nome</th>
-                                <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="tipoPessoa">Tipo Pessoa
-                                <th><a class="fa fa-fw fa-sort"><a>CPF
-                                <th><a class="fa fa-fw fa-sort"><a>CNPJ
-                                <th><a class="fa fa-fw fa-sort"><a>Razão Social
-                                </th>
+                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="nome">Nome</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="tipoPessoa">Tipo Pessoa</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>CPF</a></a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>CNPJ</a></a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Razão Social</a>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Status</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Telefone</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Próximo Contato</a></th>
                                 <th>&nbsp;</th>
                             </tr>
                             </thead>
@@ -62,8 +64,12 @@
                                 <td th:text="${st.cpf}"></td>
                                 <td th:text="${st.cnpj}"></td>
                                 <td th:text="${st.razaoSocial}"></td>
+                                <td th:text="${st.status}"></td>
+                                <td th:text="${st.telefone}"></td>
+                                <td th:text="${st.dataContato}"></td>
                                 <td>
-                                    <a href="#" class="btn btn-default" th:href="@{/cliente/edit(id=${st.id}, tipoPessoa=${st.tipoPessoa})}"
+                                    <a href="#" class="btn btn-default" 
+                                    th:href="@{/cliente/edit(id=${st.id}, tipoPessoa=${st.tipoPessoa}, status=${st.status}, sexo=${st.sexo})}"
                                        title="Editar Dados"><span class="glyphicon glyphicon-edit"></span></a>
                                     <a href="#" class="btn btn-default" th:href="@{/cliente/delete(id=${st.id})}"
                                        title="Deletar Dados"><span class="glyphicon glyphicon-trash"></span></a>

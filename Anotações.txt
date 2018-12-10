@@ -1,0 +1,32 @@
+http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#1-bar-chart
+
+
+
+https://careydevelopment.us/2017/07/01/add-charts-spring-boot-app-highchart/
+
+
+
+
+
+******
+https://canvasjs.com/spring-mvc-charts/chart-index-data-label/
+
+
+
+TAREFAS
+
+
+Incluir status de CLIENTE OPUS ou POSSIVEL CLIENTE OPUS no cadastro do cliente.
+OBS: Se incluir um seguro para o CPF ou CNPJ do cliente. Tb mudar o status do cliente para CLIENTE
+
+Incluir tela para tipos de Seguros
+
+Campos para Seguro:
+- Cliente
+- Tipo de Seguro
+- Valor Segurado
+- Percentual de Comissão na proposta
+- Data da Proposta
+- Data inicio Vigência
+- Data fim Vigência
+- Status 
