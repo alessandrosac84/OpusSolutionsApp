@@ -43,9 +43,29 @@ DOCKER:
 Cria banco de dados no docker
 docker run -d --name opus-postgres -e POSTGRES_DB=opus -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=admin postgres:10.4
 
+
+
+
+
+
+
+INSPECT NO CONTAINER DO BANCO:
+docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+
+
+
+Como criar um banco via docker:
+https://rudibroekhuizen.wordpress.com/2017/02/03/connect-to-postgresql-database-using-ssh-tunnel-from-pgadmin4-running-in-docker-container/
+
+
+
+
+CORRETO:
+Criar banco de dados no docker
+docker run -p 5050:5050 --name opus-postgres -e POSTGRES_DB=opus -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=admin nphung/pgadmin
+
 Cria imagem do docker para a aplicação
 mvn clean package dockerfile:build
-
 
 Roda aplicação linkando com o banco do docker
 docker run -it --link opus-postgres -p 8088:8088 alessandrosac84/opussolutions-app
