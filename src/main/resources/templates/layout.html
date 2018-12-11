@@ -141,21 +141,23 @@
             <ul class="sidebar-menu">
                 <li class="header">Menu</li>
 
-                <li class="treeview" id="datamaster" sec:authorize="hasRole('EMPREGADOS_ALL')">
+                <li class="treeview" id="datamaster" sec:authorize="hasRole('USER_LOGGED_IN')">
                     <a href="#"><i class="fa fa-th"></i> <span>Cadastros</span>
                         <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                     </a>
                     <ul class="treeview-menu">
-                    	<li sec:authorize="hasRole('MASTER_EMPREGADO')"><a th:href="@{/cliente/list}">Clientes</a></li>
-                        <li sec:authorize="hasRole('MASTER_EMPREGADO')"><a th:href="@{/empregado/list}">Funcionários</a></li>
-                        <li sec:authorize="hasRole('MASTER_ENDERECO')"><a th:href="@{/endereco/list}">Endereço</a></li>
+                    	<li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/cliente/list}">Clientes</a></li>
+                    	<li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/tipoSeguro/list}">Tipos de Seguro</a></li>
+                    	<li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/seguro/list}">Seguro</a></li>
+                        <li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/empregado/list}">Funcionários</a></li>
+                        <li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/endereco/list}">Endereço</a></li>
 
                     </ul>
                 </li>
 
-                <li class="treeview" id="kegiatandosen" sec:authorize="hasRole('ATIVIDADE')">
+                <li class="treeview" id="datamaster" sec:authorize="hasRole('USER_LOGGED_IN')">
                     <a href="#"><i class="fa fa-inbox"></i> <span>Atividade</span>
                         <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>

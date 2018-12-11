@@ -98,6 +98,8 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/empregado/**").hasAnyRole("USER_LOGGED_IN")
                 .antMatchers("/endereco/**").hasAnyRole("USER_LOGGED_IN")
                 .antMatchers("/cliente/**").hasAnyRole("USER_LOGGED_IN")
+                .antMatchers("/tipoSeguro/**").hasAnyRole("USER_LOGGED_IN")
+                .antMatchers("/seguro/**").hasAnyRole("USER_LOGGED_IN")
 
                 .anyRequest().authenticated()
                 .and()
