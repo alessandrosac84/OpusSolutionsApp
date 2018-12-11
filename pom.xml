@@ -10,7 +10,7 @@
 	<packaging>jar</packaging>
 
 	<name>opussolutions-app</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Projeto Opus Solutions</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -25,6 +25,9 @@
 		<java.version>1.8</java.version>
 		<thymeleaf.version>3.0.7.RELEASE</thymeleaf.version>
 		<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
+		
+		<docker.version>1.4.2</docker.version>
+        <docker.repository>alessandrosac84</docker.repository>
 	</properties>
 
 	<dependencies>
@@ -109,6 +112,14 @@
 					<failOnNoGitDirectory>false</failOnNoGitDirectory>
 				</configuration>
 			</plugin>
+			 <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${docker.version}</version>
+                <configuration>
+                    <repository>${docker.repository}/${project.artifactId}</repository>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 

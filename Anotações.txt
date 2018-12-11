@@ -35,3 +35,17 @@ Campos para Seguro:
 - Data inicio Vigência
 - Data fim Vigência
 - Status 
+
+
+
+DOCKER:
+
+Cria banco de dados no docker
+docker run -d --name opus-postgres -e POSTGRES_DB=opus -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=admin postgres:10.4
+
+Cria imagem do docker para a aplicação
+mvn clean package dockerfile:build
+
+
+Roda aplicação linkando com o banco do docker
+docker run -it --link opus-postgres -p 8088:8088 alessandrosac84/opussolutions-app

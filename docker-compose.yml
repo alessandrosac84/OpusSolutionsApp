@@ -1,0 +1,22 @@
+version: '3'
+services:
+ opussolutions-app:
+    image: alessandrosac84/opussolutions-app
+    ports:
+      - "8080:8080"
+      links:
+      - opus-postgres
+    environment:
+      - MYAPP_JDBC_URL=jdbc:postgresql://localhost:5432/opus
+      - MYAPP_JDBC_USER=postgress
+      - MYAPP_JDBC_PASS=admin
+    depends_on:
+      - opus-postgres
+ opus-postgres:
+    image: postgres:10.4
+    environment:
+      - POSTGRES_DB=opus
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+ expose:
+      - 5432
