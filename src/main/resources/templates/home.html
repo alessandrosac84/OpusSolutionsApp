@@ -5,12 +5,12 @@
     <meta charset="UTF-8"/>
     <title>Home</title>
     <link rel="icon" href="#" th:href="@{/img/favicon.ico}" type="image/x-icon"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
 
     <h1>Opus Solutions Manager</h1>
-    
      <section class="content">
       
       <div class="row">
@@ -68,32 +68,125 @@
             <a href="#" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-      
       </div>
       
-                <!-- solid sales graph -->
-          <div class="box box-solid bg-teal-gradient">
-            <div class="box-header">
-              <i class="fa fa-th"></i>
-
-              <h3 class="box-title">Gráfico de Seguros</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-                </button>
-              </div>
+      <div class="row">
+		  <div class="col-sm-6">
+			  <div class="box-header">
+	              <i class="fa fa-th"></i>
+	
+	              <h3 class="box-title">Gráfico de Seguros</h3>
+	
+	              <div class="box-tools pull-right">
+	                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+	                </button>
+	                <button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+	                </button>
+	              </div>
+	            </div>
+	            <div class="box-body border-radius-none">
+	            <canvas id="line-chart" width="800" height="450"></canvas>
             </div>
-            <div class="box-body border-radius-none">
-              <div class="chart" id="line-chart" style="height: 250px;"></div>
-            </div>
-            <!-- /.box-body -->
-
-          </div>
+		  </div>
+		  <div class="col-sm-6">
+			  <div class="box-header">
+	              <i class="fa fa-th"></i>
+	
+	              <h3 class="box-title">Seguros por Seguradora</h3>
+	
+	              <div class="box-tools pull-right">
+	                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+	                </button>
+	                <button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+	                </button>
+	              </div>
+	            </div>
+	            <div class="box-body border-radius-none">
+	            	<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
+	            </div>
+		  </div>
+	</div>
     </section>
 </div>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="static/js/pages/dashboard.js"></script>
 </body>
 </html>
+
+<script>
+//Bar chart
+new Chart(document.getElementById("bar-chart-grouped"), {
+    type: 'bar',
+    data: {
+      labels: ["Automotivo"],
+      datasets: [
+        {
+          label: "Porto Seguro",
+          backgroundColor: "#3e95cd",
+          data: [5]
+        }, {
+          label: "Azul Seguros",
+          backgroundColor: "#66ffff",
+          data: [5]
+        }, {
+          label: "Itáu",
+          backgroundColor: "#ffff00",
+          data: [2]
+        }, {
+          label: "Tokio Marine",
+          backgroundColor: "#33cc33",
+          data: [4]
+        }, {
+          label: "Allianz",
+          backgroundColor: "#3333ff",
+          data: [1]
+        }, {
+          label: "Liberty Seguros",
+          backgroundColor: "#99ccff",
+          data: [2]
+        }, {
+          label: "Suhai",
+          backgroundColor: "#66ff99",
+          data: [1]
+        }, {
+          label: "HDI",
+          backgroundColor: "#66ff99",
+          data: [1]
+        }, {
+          label: "BRADESCO",
+          backgroundColor: "#66ff99",
+          data: [2]
+        }, {
+          label: "MAPFRE",
+          backgroundColor: "#66ff99",
+          data: [3]
+        }
+        
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Crescimento Mensal'
+      }
+    }
+});
+
+new Chart(document.getElementById("line-chart"), {
+	  type: 'line',
+	  data: {
+	    labels: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro", "Dezembro"],
+	    datasets: [{ 
+	        data: [1,5,10,16,27,10,50,35,22,77,100,90],
+	        label: "Seguros",
+	        borderColor: "red",
+	        fill: false
+	      }
+	    ]
+	  },
+	  options: {
+	    title: {
+	      display: true,
+	      text: 'Crescimento Mensal de Seguros Opus'
+	    }
+	  }
+	});
+</script>
