@@ -1,14 +1,14 @@
 <!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
 <head>
-    <title>Clientes</title>
+    <title>Tipos de Seguro</title>
 </head>
 <body>
 <div layout:fragment="breadcrumb">
-    <h1>Lista de Clientes</h1>
+    <h1>Lista de Tipos de Seguro</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Lista de Clientes</li>
+        <li class="active">Lista de Tipos de Seguro</li>
     </ol>
 </div>
 <div layout:fragment="content">
@@ -16,11 +16,11 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <a class="box-title btn btn-primary" th:href="@{/cliente/form}">Adicionar Cliente</a>
+                    <a class="box-title btn btn-primary" th:href="@{/tipoSeguro/form}">Adicionar Tipo de Seguro</a>
 
 
                     <div class="box-tools">
-                        <form th:action="@{/cliente/list}" method="get">
+                        <form th:action="@{/tipoSeguro/list}" method="get">
                             <div class="input-group input-group-sm" style="width: 250px;">
                                 <input type="text" name="value" class="form-control pull-right"
                                        placeholder="Pesquisa por Nome" th:if="${key} == null"/>
@@ -46,37 +46,27 @@
                             <tr>
                                 <th> No</th>
                                 <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="nome">Nome</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="tipoPessoa">Tipo Pessoa</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>CPF</a></a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>CNPJ</a></a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>Razão Social</a>
-                                <th><a class="fa fa-fw fa-sort"></a><a>Status</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>Telefone</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>Próximo Contato</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="categoria">Categoria</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Ramo</a></th>
                                 <th>&nbsp;</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="st,iter : ${cliente}">
+                            <tr th:each="st,iter : ${tipoSeguro}">
                                 <td th:text="${iter.count}"></td>
                                 <td th:text="${st.nome}"></td>
-                                <td th:text="${st.tipoPessoa}"></td>
-                                <td th:text="${st.cpf}"></td>
-                                <td th:text="${st.cnpj}"></td>
-                                <td th:text="${st.razaoSocial}"></td>
-                                <td th:text="${st.status}"></td>
-                                <td th:text="${st.telefone}"></td>
-                                <td th:text="${st.dataContato}"></td>
+                                <td th:text="${st.categoria}"></td>
+                                <td th:text="${st.ramo}"></td>
                                 <td>
                                     <a href="#" class="btn btn-default" 
-                                    th:href="@{/cliente/edit(id=${st.id}, tipoPessoa=${st.tipoPessoa}, status=${st.status}, sexo=${st.sexo})}"
+                                    th:href="@{/tipoSeguro/edit(id=${st.id})}"
                                        title="Editar Dados"><span class="glyphicon glyphicon-edit"></span></a>
-                                    <a href="#" class="btn btn-default" th:href="@{/cliente/delete(id=${st.id})}"
+                                    <a href="#" class="btn btn-default" th:href="@{/tipoSeguro/delete(id=${st.id})}"
                                        title="Deletar Dados"><span class="glyphicon glyphicon-trash"></span></a>
                                 </td>
                             </tr>
-                            <tr th:if="${#lists.isEmpty(cliente.content)}">
-                                <td colspan="13" class="text-center">Dados do cliente não encontrados</td>
+                            <tr th:if="${#lists.isEmpty(tipoSeguro.content)}">
+                                <td colspan="13" class="text-center">Dados do tipoSeguro não encontrados</td>
                             </tr>
                             </tbody>
                         </table>
@@ -84,7 +74,7 @@
                 </div>
 
 
-                <div th:if="${not #lists.isEmpty(cliente.content)}">
+                <div th:if="${not #lists.isEmpty(tipoSeguro.content)}">
 
                     <div sd:pagination-summary="">info</div>
                     <div class="text-center">

@@ -27,9 +27,12 @@ public class TipoSeguro {
     @Size(max = 50)
     @Column(nullable = false)
     private String nome;
+    
+    @Size(max = 100)
+    @Column(nullable = false)
+    private String categoria;
 
-    @NotNull
-    @NotEmpty
+
     @Size(max = 100)
     @Column(nullable = false)
     private String ramo;
@@ -56,6 +59,14 @@ public class TipoSeguro {
 
 	public void setRamo(String ramo) {
 		this.ramo = ramo;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
     

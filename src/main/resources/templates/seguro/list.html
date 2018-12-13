@@ -1,14 +1,14 @@
 <!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
 <head>
-    <title>Clientes</title>
+    <title>Seguros</title>
 </head>
 <body>
 <div layout:fragment="breadcrumb">
-    <h1>Lista de Clientes</h1>
+    <h1>Lista de Seguros</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Lista de Clientes</li>
+        <li class="active">Lista de Seguros</li>
     </ol>
 </div>
 <div layout:fragment="content">
@@ -16,11 +16,11 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <a class="box-title btn btn-primary" th:href="@{/cliente/form}">Adicionar Cliente</a>
+                    <a class="box-title btn btn-primary" th:href="@{/seguro/form}">Adicionar Seguro</a>
 
 
                     <div class="box-tools">
-                        <form th:action="@{/cliente/list}" method="get">
+                        <form th:action="@{/seguro/list}" method="get">
                             <div class="input-group input-group-sm" style="width: 250px;">
                                 <input type="text" name="value" class="form-control pull-right"
                                        placeholder="Pesquisa por Nome" th:if="${key} == null"/>
@@ -45,38 +45,45 @@
                             <thead>
                             <tr>
                                 <th> No</th>
-                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="nome">Nome</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="tipoPessoa">Tipo Pessoa</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>CPF</a></a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>CNPJ</a></a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>Razão Social</a>
+                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="cliente.nome">Nome Cliente</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="cliente.cpf">CPF/CNPJ</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="nome">Item Segurado</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="tipoSeguro.nome">Tipo Seguro</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Valor do Seguro</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Importância Segurada</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Comissão</a>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Data Proposta</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Início Vigência</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Fim Vigência</a></th>
                                 <th><a class="fa fa-fw fa-sort"></a><a>Status</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>Telefone</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>Próximo Contato</a></th>
                                 <th>&nbsp;</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="st,iter : ${cliente}">
+                            <tr th:each="st,iter : ${seguro}">
                                 <td th:text="${iter.count}"></td>
+                                <td th:text="${st.cliente.nome}"></td>
+                                <td th:text="${st.cliente.cpf}${st.cliente.cnpj}"></td>
                                 <td th:text="${st.nome}"></td>
-                                <td th:text="${st.tipoPessoa}"></td>
-                                <td th:text="${st.cpf}"></td>
-                                <td th:text="${st.cnpj}"></td>
-                                <td th:text="${st.razaoSocial}"></td>
+                                <td th:text="${st.tipoSeguro.nome}"></td>
+                                <td th:text="${st.valorSeguro}"></td>
+                                <td th:text="${st.valorSegurado}"></td>
+                                <td th:text="${st.percentualComissao}"></td>
+                                <td th:text="${st.dataProposta}"></td>
+                                <td th:text="${st.dataInicioVigencia}"></td>
+                                <td th:text="${st.dataFimVigencia}"></td>
                                 <td th:text="${st.status}"></td>
-                                <td th:text="${st.telefone}"></td>
-                                <td th:text="${st.dataContato}"></td>
+                                
                                 <td>
                                     <a href="#" class="btn btn-default" 
-                                    th:href="@{/cliente/edit(id=${st.id}, tipoPessoa=${st.tipoPessoa}, status=${st.status}, sexo=${st.sexo})}"
+                                    th:href="@{/seguro/edit(id=${st.id}, tipoSeguro=${st.tipoSeguro.nome}, status=${st.status})}"
                                        title="Editar Dados"><span class="glyphicon glyphicon-edit"></span></a>
-                                    <a href="#" class="btn btn-default" th:href="@{/cliente/delete(id=${st.id})}"
+                                    <a href="#" class="btn btn-default" th:href="@{/seguro/delete(id=${st.id})}"
                                        title="Deletar Dados"><span class="glyphicon glyphicon-trash"></span></a>
                                 </td>
                             </tr>
-                            <tr th:if="${#lists.isEmpty(cliente.content)}">
-                                <td colspan="13" class="text-center">Dados do cliente não encontrados</td>
+                            <tr th:if="${#lists.isEmpty(seguro.content)}">
+                                <td colspan="13" class="text-center">Dados do seguro não encontrados</td>
                             </tr>
                             </tbody>
                         </table>
@@ -84,7 +91,7 @@
                 </div>
 
 
-                <div th:if="${not #lists.isEmpty(cliente.content)}">
+                <div th:if="${not #lists.isEmpty(seguro.content)}">
 
                     <div sd:pagination-summary="">info</div>
                     <div class="text-center">

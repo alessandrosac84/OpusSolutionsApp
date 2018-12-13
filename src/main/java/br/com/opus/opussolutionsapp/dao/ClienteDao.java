@@ -11,4 +11,8 @@ import br.com.opus.opussolutionsapp.entity.Cliente;
 @Repository
 public interface ClienteDao extends PagingAndSortingRepository<Cliente, String> {
     Page<Cliente>findByNomeContainingIgnoreCase(String nome, Pageable pageable);
+    
+    Cliente findByCpf(String cpf);
+    
+    Cliente findByCnpj(String cnpj);
 }

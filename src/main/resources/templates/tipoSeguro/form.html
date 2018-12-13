@@ -1,53 +1,14 @@
 <!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
 <head>
-    <title>Cliente</title>
-    <script>
-	    function tipoPessoaChanged(){
-	        valorSelecionado = $('#tipoPessoa').val();
-	        
-	        //quando tiver visualizando o formulário o valor fica no campo text;
-	        if(!valorSelecionado){
-	            valorSelecionado = $('#tipoPessoa').text();
-	        }
-	        switch(valorSelecionado) {
-	            case "FISICA":
-	                $('#group-cpf').show();
-	                $('#group-cnpj').hide();
-	                $('#group-razao-social').hide();
-	                break;
-	
-	            case "JURIDICA":
-	                $('#group-cpf').hide();
-	                $('#group-cnpj').show();
-	                $('#group-razao-social').show();
-	                break;
-	
-	            default :
-	                $('#group-cpf').hide();
-	                $('#group-cnpj').hide();
-	                $('#group-razao-social').hide();
-	                break;
-	        }
-	    }
-	    
-	    function formatar(mascara, documento){
-	    	   var i = documento.value.length;
-	    	   var saida = mascara.substring(0,1);
-	    	   var texto = mascara.substring(i)
-	    	  
-	    	   if (texto.substring(0,1) != saida){
-	    	    documento.value += texto.substring(0,1);
-	    	   }  
-	    	  }
-    </script>
+    <title>Tipo de Seguro</title>
 </head>
 <body>
 <div layout:fragment="breadcrumb">
-    <h1>Dados do Cliente</h1>
+    <h1>Tipo de Seguro</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dados do Cliente</li>
+        <li class="active">Tipo de Seguro</li>
     </ol>
 </div>
 <div layout:fragment="content">
@@ -59,124 +20,40 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" th:object="${cliente}" method="post">
+                <form role="form" th:object="${tipoSeguro}" method="post">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="nome">Nome</label>
                             <input type="text"
                                    th:field="*{nome}"
-                                   name="nome" class="form-control" id="nome" placeholder="Nome Cliente" />
+                                   name="nome" class="form-control" id="nome" placeholder="Tipo de Seguro" />
                             <label class="control-label error-label" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
                                 Mensagem de erro mais tarde aqui
                             </label>
                         </div>
                         
+                        <div class="form-group">
+                            <label for="categoria">Categoria</label>
+                            <input type="text"
+                                   th:field="*{categoria}"
+                                   name="categoria" class="form-control" id="categoria" placeholder="Categoria" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                        </div>
                         
                         <div class="form-group">
-                            <label for="tipoPessoa">Tipo Pessoa</label>
-                            <select style="width: 100px;" id="tipoPessoa" name="tipoPessoa" onchange="tipoPessoaChanged();" >
-							  <option></option>
-							  <option value="FISICA">FÍSICA</option>
-							  <option value="JURIDICA">JURÍDICA</option>
-							</select>
-                            <label class="control-label error-label"  th:if="${#fields.hasErrors('tipoPessoa')}"th:errors="*{tipoPessoa}">
-                                Mensagem de erro mais tarde aqui
-                            </label>
-                            
-                            <label style="padding-left: 40px;" for="status">Status</label >
-	                            <select style="width: 130px;" id="status" name="status" >
-								  <option></option>
-								  <option disabled value="CLIENTE">CLIENTE</option>
-								  <option value="NÃO CLIENTE">NÃO CLIENTE</option>
-								</select>
-	                            <label class="control-label error-label"  th:if="${#fields.hasErrors('status')}"th:errors="*{status}">
-	                                Mensagem de erro mais tarde aqui
-                            </label>
-                            
-                            <label style="padding-left: 40px;" for="sexo">Sexo</label >
-	                            <select style="width: 100px;" id="sexo" name="sexo" >
-								  <option></option>
-								  <option value="M">MASCULINO</option>
-								  <option value="F">FEMININO</option>
-								</select>
-	                            <label class="control-label error-label"  th:if="${#fields.hasErrors('sexo')}"th:errors="*{sexo}">
-	                                Mensagem de erro mais tarde aqui
-                            </label>
-                        </div>
-                        
-                        <div class="form-group" id="group-cpf" hidden="true">
-                            <label for="cpf">CPF</label>
+                            <label for="ramo">ramo</label>
                             <input type="text"
-                                   th:field="*{cpf}"
-                                   name="cpf" class="form-control" id="cpf" placeholder="CPF" onkeypress="formatar('###.###.###-##', this);" maxlength="14"/>
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">
+                                   th:field="*{ramo}"
+                                   name="ramo" class="form-control" id="ramo" placeholder="Ramo" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('ramo')}" th:errors="*{ramo}">
                                 Mensagem de erro mais tarde aqui
                             </label>
                         </div>
-                        
-                        <div class="form-group" id="group-cnpj" hidden="true">
-                            <label for="cnpj">CNPJ</label>
-                            <input type="text"
-                                   th:field="*{cnpj}"
-                                   name="cpf" class="form-control" id="cnpj" placeholder="CNPJ" onkeypress="formatar('##.###.###/####-##', this);" maxlength="18" />
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}">
-                                Mensagem de erro mais tarde aqui
-                            </label>
-                        </div>
-                        
-                        <div class="form-group" id="group-razao-social" hidden="true">
-                            <label for="razaoSocial">Razão Social</label>
-                            <input type="text"
-                                   th:field="*{razaoSocial}"
-                                   name="razaoSocial" class="form-control" id="razaoSocial" placeholder="Razão Social" />
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('razaoSocial')}" th:errors="*{razaoSocial}">
-                                Mensagem de erro mais tarde aqui
-                            </label>
-                        </div>
-                       
-                        <div class="form-group" id="group-email">
-                            <label for="email">Email</label>
-                            <input type="text"
-                                   th:field="*{email}"
-                                   name="email" class="form-control" id="email" placeholder="Email"/>
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
-                                Mensagem de erro mais tarde aqui
-                            </label>
-                        </div>
-                        
-                        <div class="form-group" id="group-telefone">
-                            <label for="telefone">Telefone</label>
-                            <input type="text"
-                                   th:field="*{telefone}" required="true"
-                                   name="telefone" class="form-control" id="telefone" placeholder="Telefone Principal" onkeypress="formatar('## ####-####', this);" maxlength="12" />
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}">
-                                Mensagem de erro mais tarde aqui
-                            </label>
-                        </div>
-                        
-                        <div class="form-group" id="group-celular">
-                            <label for="celular">Celular</label>
-                            <input type="text"
-                                   th:field="*{celular}"
-                                   name="celular" class="form-control" id="celular" placeholder="Celular" onkeypress="formatar('## #####-####', this);" maxlength="13" />
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}">
-                                Mensagem de erro mais tarde aqui
-                            </label>
-                        </div>
-                        
-                        <div class="form-group" id="group-data-contato">
-                            <label for="dataContato">Data para Contato</label>
-                            <input type="text"
-                                   th:field="*{dataContato}"
-                                   name="dataContato" class="form-control" id="dataContato" placeholder="Data para Contato" onkeypress="formatar('##/##/####', this);" maxlength="10" />
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('dataContato')}" th:errors="*{dataContato}">
-                                Mensagem de erro mais tarde aqui
-                            </label>
-                        </div>
-                        
-                        
+
                         <div class="form-group">
-                            <a th:href="@{/cliente/list}" class="btn btn-default" role="button" title="Lista de Volta">
+                            <a th:href="@{/tipoSeguro/list}" class="btn btn-default" role="button" title="Lista de Volta">
                                 <span aria-hidden="true"></span>Cancelar
                             </a>
                             <button type="submit" class="box-title btn btn-primary" title="Salvar Dados">Salvar</button>
