@@ -4,6 +4,31 @@
     <title>Seguro</title>
     
         <script>
+	    function tipoPessoaChanged(){
+	        valorSelecionado = $('#tipoPessoa').val();
+	        
+	        //quando tiver visualizando o formulário o valor fica no campo text;
+	        if(!valorSelecionado){
+	            valorSelecionado = $('#tipoPessoa').text();
+	        }
+	        switch(valorSelecionado) {
+	            case "FISICA":
+	                $('#group-cpf').show();
+	                $('#group-cnpj').hide();
+	                break;
+	
+	            case "JURIDICA":
+	                $('#group-cpf').hide();
+	                $('#group-cnpj').show();
+	                break;
+	
+	            default :
+	                $('#group-cpf').hide();
+	                $('#group-cnpj').hide();
+	                break;
+	        }
+	    }
+	    
 	    function formatar(mascara, documento){
 	    	   var i = documento.value.length;
 	    	   var saida = mascara.substring(0,1);
@@ -36,24 +61,69 @@
                 <form role="form" th:object="${seguro}" method="post">
                               
                     <div class="box-body">
+                    
 <!--                             <div class="input-group input-group-sm" style="width: 250px;"> -->
 <!--                                 <input type="text" name="value" class="form-control pull-right" -->
 <!--                                        placeholder="Pesquisa por CPF/CPJ" th:if="${key} == null"/> -->
 <!--                                 <div class="input-group-btn"> -->
-<!--                                     <button onclick="buscaCliente(value)" class="btn btn-default"><i class="fa fa-search"></i></button> -->
+<!--                                     <button  class="btn btn-default"><i class="fa fa-search"></i></button> -->
 <!--                                 </div> -->
 <!--                             </div> -->
                     
+                    <div class="form-group">
+                            <label for="tipoPessoa">Tipo Pessoa</label>
+                            <select style="width: 100px;" id="tipoPessoa" name="tipoPessoa" onchange="tipoPessoaChanged();" required >
+							  <option></option>
+							  <option value="FISICA">FÍSICA</option>
+							  <option value="JURIDICA">JURÍDICA</option>
+							</select>
+                            <label class="control-label error-label"  th:if="${#fields.hasErrors('tipoPessoa')}"th:errors="*{tipoPessoa}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                    </div>
                     
-                        <div class="form-group">
-                            <label for="cliente.nome">Nome</label>
-                            <input type="text"
-                                   th:field="*{cliente.nome}"
-                                   name="cliente.nome" class="form-control" id="cliente.nome" placeholder="Nome Cliente" disabled/>
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('cliente.nome')}" th:errors="*{cliente.nome}">
+                    <div class="form-group" id="group-cpf" hidden="true">
+                            <label for="cpf">CPF</label>
+                            <input type="text" 
+                                   th:field="*{cpf}"
+                                   name="cpf" class="form-control" id="cpf" placeholder="CPF" onkeypress="formatar('###.###.###-##', this);" maxlength="14" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">
                                 Mensagem de erro mais tarde aqui
                             </label>
                         </div>
+                        
+                        <div class="form-group" id="group-cnpj" hidden="true">
+                            <label for="cnpj">CNPJ</label>
+                            <input type="text" 
+                                   th:field="*{cnpj}"
+                                   name="cnpj" class="form-control" id="cnpj" placeholder="CNPJ" onkeypress="formatar('##.###.###/####-##', this);" maxlength="18" />
+                            <label class="control-label error-label" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}">
+                                Mensagem de erro mais tarde aqui
+                            </label>
+                        </div>
+                    
+                    
+<!--                     	<div class="form-group"> -->
+<!--                             <label for="cpfCnpj">CPF/CNPJ</label> -->
+<!--                             <input type="text" -->
+<!--                                    th:field="*{cpfCnpj}" -->
+<!--                                    name="cpfCnpj" class="form-control" id="cpfCnpj" placeholder="CPF/CNPJ" required/> -->
+                                    
+<!--                             <label class="control-label error-label" th:if="${#fields.hasErrors('cpfCnpj')}" th:errors="*{cpfCnpj}"> -->
+<!--                                 Mensagem de erro mais tarde aqui -->
+<!--                             </label> -->
+<!--                         </div> -->
+                    
+<!--                         <div class="form-group"> -->
+<!--                             <label for="cliente.nome">Nome</label> -->
+<!--                             <input type="text" -->
+<!--                                    th:field="*{cliente.nome}" -->
+<!--                                    name="cliente.nome" class="form-control" id="cliente.nome" placeholder="Nome Cliente" disabled/> -->
+                                    
+<!--                             <label class="control-label error-label" th:if="${#fields.hasErrors('cliente.nome')}" th:errors="*{cliente.nome}"> -->
+<!--                                 Mensagem de erro mais tarde aqui -->
+<!--                             </label> -->
+<!--                         </div> -->
                         
                         <div class="form-group">
                             <label for="nome">Item Segurado</label>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.opus.opussolutionsapp.dao.ClienteDao;
 import br.com.opus.opussolutionsapp.dao.SeguroDao;
 import br.com.opus.opussolutionsapp.entity.Seguro;
 
@@ -25,6 +26,9 @@ import br.com.opus.opussolutionsapp.entity.Seguro;
 public class SeguroController {
     @Autowired
     private SeguroDao seguroDao;
+    
+    @Autowired
+    private ClienteDao clienteDao;
 
     @GetMapping("/seguro/list")
     public ModelMap seguro(@PageableDefault(size = 5) Pageable pageable, @RequestParam(name = "value", required = false) String value, Model model){
@@ -49,6 +53,17 @@ public class SeguroController {
         if (errors.hasErrors()) {
             return "seguro/form";
         }
+        
+        try {
+        	if(seguro.getTipoPessoa().equals("FISICA")) {
+            	seguro.setCliente(clienteDao.findByCpf(seguro.getCpf()));
+            }else {
+            	seguro.setCliente(clienteDao.findByCnpj(seguro.getCnpj()));
+            }	
+		} catch (Exception e) {
+			
+		}
+        
         seguroDao.save(seguro);
         status.setComplete();
         return "redirect:/seguro/list";
@@ -89,6 +104,15 @@ public class SeguroController {
         status.setComplete();
         return "redirect:/seguro/list";
     }
+    
+    @GetMapping("/search")
+    public String search(@ModelAttribute("cpf") String cpf, Model model ) {
+    
+    	System.out.println(cpf);
+    	
+    	return "seguro/form";
+    }
+
 }
 
 
