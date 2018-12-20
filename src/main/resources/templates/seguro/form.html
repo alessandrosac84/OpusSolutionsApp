@@ -58,9 +58,23 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 
+                <form th:object="${cpfcnpj}" method="post">
+        			<div class="box-body">
+                            <div class="input-group input-group-sm" style="width: 250px;">
+                                <input type="text" name="cpfcnpj" class="form-control pull-right"
+                                       placeholder="Pesquisa por CPF/CPJ" th:if="${key} == null"/>
+                                <div class="input-group-btn">
+                                    <button  class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>        			
+        			</div>
+		    </form>
+                
                 <form role="form" th:object="${seguro}" method="post">
                               
                     <div class="box-body">
+                    
+                    
                     
 <!--                             <div class="input-group input-group-sm" style="width: 250px;"> -->
 <!--                                 <input type="text" name="value" class="form-control pull-right" -->
