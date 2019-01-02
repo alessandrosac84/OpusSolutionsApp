@@ -23,7 +23,7 @@ public class Seguro {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "clienteFK")
     private Cliente cliente;
     
@@ -62,6 +62,15 @@ public class Seguro {
     @Size(max = 150)
     @Column(nullable = true)
     private String nome;
+    
+    @Transient
+    private String cpf;
+    
+    @Transient
+    private String cnpj;
+    
+    @Transient
+    private String tipoPessoa;
 
 	public String getId() {
 		return id;
@@ -149,6 +158,30 @@ public class Seguro {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(String tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
     
 
