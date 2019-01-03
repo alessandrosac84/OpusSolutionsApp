@@ -76,16 +76,9 @@
 	              <i class="fa fa-th"></i>
 	
 	              <h3 class="box-title">Gráfico de Seguros</h3>
-	
-	              <div class="box-tools pull-right">
-	                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-	                </button>
-	                <button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-	                </button>
-	              </div>
-	            </div>
+		            </div>
 	            <div class="box-body border-radius-none">
-	            <canvas id="line-chart" width="800" height="450"></canvas>
+	            <canvas id="lineChart" width="800" height="450"></canvas>
             </div>
 		  </div>
 		  <div class="col-sm-6">
@@ -93,13 +86,6 @@
 	              <i class="fa fa-th"></i>
 	
 	              <h3 class="box-title">Seguros por Seguradora</h3>
-	
-	              <div class="box-tools pull-right">
-	                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-	                </button>
-	                <button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-	                </button>
-	              </div>
 	            </div>
 	            <div class="box-body border-radius-none">
 	            	<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
@@ -170,23 +156,87 @@ new Chart(document.getElementById("bar-chart-grouped"), {
     }
 });
 
-new Chart(document.getElementById("line-chart"), {
-	  type: 'line',
-	  data: {
-	    labels: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro", "Dezembro"],
-	    datasets: [{ 
-	        data: [1,5,10,16,27,10,50,35,22,77,100,90],
-	        label: "Seguros",
-	        borderColor: "red",
-	        fill: false
-	      }
-	    ]
-	  },
-	  options: {
-	    title: {
-	      display: true,
-	      text: 'Crescimento Mensal de Seguros Opus'
-	    }
-	  }
-	});
+
+var jsonfile = {
+		   "jsonarraychartline": [{
+			      "mes": "Janeiro",
+			      "totalMes": 12
+			   }, {
+			      "mes": "Fevereiro",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Março",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Abril",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Maio",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Junho",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Julho",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Agosto",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Setembro",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Outubro",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Novembro",
+			      "totalMes": 0
+			   }, {
+			      "mes": "Dezembro",
+			      "totalMes": 0
+			   }]
+		};
+
+		var labels = jsonfile.jsonarraychartline.map(function(e) {
+		   return e.mes;
+		});
+		var data = jsonfile.jsonarraychartline.map(function(e) {
+		   return e.totalMes;
+		});;
+
+		var ctx = lineChart.getContext('2d');
+		var config = {
+		   type: 'line',
+		   data: {
+		      labels: labels,
+		      datasets: [{
+		         label: 'Crescimento Mensal de Seguros Opus 2019',
+		         data: data,
+		         backgroundColor: 'rgba(0, 119, 204, 0.3)'
+		      }]
+		   }
+		};
+
+		var chart = new Chart(ctx, config);
+
+
+// new Chart(document.getElementById("line-chart"), {
+// 	  type: 'line',
+// 	  data: {
+// 	    labels: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro", "Dezembro"],
+// 	    datasets: [{ 
+// 	        data: [1,5,10,16,27,10,50,35,22,77,100,90],
+// 	        label: "Seguros",
+// 	        borderColor: "red",
+// 	        fill: false
+// 	      }
+// 	    ]
+// 	  },
+// 	  options: {
+// 	    title: {
+// 	      display: true,
+// 	      text: 'Crescimento Mensal de Seguros Opus'
+// 	    }
+// 	  }
+// 	});
 </script>
