@@ -63,7 +63,7 @@
                             <tr th:each="st,iter : ${seguro}">
                                 <td th:text="${iter.count}"></td>
                                 <td th:text="${st.cliente.nome}"></td>
-                                <td th:text="${st.cliente.cpf}${st.cliente.cnpj}"></td>
+                                <td th:text="${st.cliente.cpf}"></td>
                                 <td th:text="${st.nome}"></td>
                                 <td th:text="${st.tipoSeguro.nome}"></td>
                                 <td th:text="${st.valorSeguro}"></td>
