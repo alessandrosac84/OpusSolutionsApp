@@ -1,7 +1,6 @@
 package br.com.opus.opussolutionsapp.controller;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-
 import br.com.opus.opussolutionsapp.dao.ClienteDao;
 import br.com.opus.opussolutionsapp.dao.SeguroDao;
 import br.com.opus.opussolutionsapp.dao.TipoSeguroDao;
@@ -28,149 +26,165 @@ import br.com.opus.opussolutionsapp.entity.Seguro;
 
 @Controller
 public class SeguroController {
-    @Autowired
-    private SeguroDao seguroDao;
-    
-    @Autowired
-    private ClienteDao clienteDao;
-    
-    @Autowired
-    private TipoSeguroDao tipoSeguroDao;
-    
-    private Cliente cliente;
+  @Autowired
+  private SeguroDao seguroDao;
 
-    @GetMapping("/seguro/list")
-    public ModelMap seguro(@PageableDefault(size = 5) Pageable pageable, @RequestParam(name = "value", required = false) String value, Model model){
-        if (value != null) {
-            model.addAttribute("key", value);
-            return new ModelMap().addAttribute("seguro", seguroDao.findByNomeContainingIgnoreCase(value, pageable));
-        } else {
-            return new ModelMap().addAttribute("seguro", seguroDao.findAll(pageable));
-        }
+  @Autowired
+  private ClienteDao clienteDao;
+
+  @Autowired
+  private TipoSeguroDao tipoSeguroDao;
+
+  private Cliente cliente;
+
+  @GetMapping("/seguro/list")
+  public ModelMap seguro(@PageableDefault(size = 5) Pageable pageable,
+      @RequestParam(name = "value", required = false) String value, Model model) {
+    if (value != null) {
+      model.addAttribute("key", value);
+      return new ModelMap().addAttribute("seguro",
+          seguroDao.findByNomeContainingIgnoreCase(value, pageable));
+    } else {
+      return new ModelMap().addAttribute("seguro", seguroDao.findAll(pageable));
+    }
+  }
+
+  @GetMapping("/seguro/form")
+  public ModelMap showForm(@RequestParam(value = "id", required = false) Seguro seguro) {
+    if (seguro == null) {
+      seguro = new Seguro();
     }
 
-    @GetMapping("/seguro/form")
-    public ModelMap showForm(@RequestParam(value = "id", required = false) Seguro seguro ) {
-        if (seguro == null) {
-        	seguro = new Seguro();
-        }
-        
-        ModelMap map = new ModelMap();
-        map.addAttribute("tiposDeSeguro", tipoSeguroDao.findAll());
-        map.addAttribute("seguro", seguro);
-        return map;
+    ModelMap map = new ModelMap();
+    map.addAttribute("tiposDeSeguro", tipoSeguroDao.findAll());
+    map.addAttribute("seguro", seguro);
+    return map;
+  }
+
+  @PostMapping("/seguro/form")
+  public String save(@Valid @ModelAttribute("seguro") Seguro seguro,
+      @ModelAttribute("tipoSeguro") String tipoSeguro, BindingResult errors, SessionStatus status,
+      Pageable pageable) {
+    seguro.setCliente(new Cliente());
+    if (errors.hasErrors()) {
+      return "seguro/form";
     }
 
-    @PostMapping("/seguro/form")
-    public String save(@Valid @ModelAttribute("seguro") Seguro seguro,  @ModelAttribute("tipoSeguro") String tipoSeguro , BindingResult errors, SessionStatus status,
-    		Pageable pageable) {
-    	seguro.setCliente(new Cliente());
-        if (errors.hasErrors()) {
-            return "seguro/form";
-        }
-        
-        if(seguro.getTipoPessoa().equals("FISICA")) {
-        	seguro.setCliente(clienteDao.findByCpf(seguro.getCpf()));
-        }else if (seguro.getTipoPessoa().equals("JURIDICA")) {
-        	seguro.setCliente(clienteDao.findByCnpj(seguro.getCnpj()));
-        }else {
-        	errors.addError(new ObjectError("ClienteNotFound", "Cliente não existe"));
-        	return "seguro/form";
-        }
-        
-       seguro.setTipoSeguro(tipoSeguroDao.findByNome(tipoSeguro));
-        
-        
-        seguroDao.save(seguro);
-        status.setComplete();
-        return "redirect:/seguro/list";
+    if (seguro.getTipoPessoa().equals("FISICA")) {
+      seguro.setCliente(clienteDao.findByCpf(seguro.getCpf()));
+    } else if (seguro.getTipoPessoa().equals("JURIDICA")) {
+      seguro.setCliente(clienteDao.findByCnpj(seguro.getCnpj()));
+    } else {
+
     }
 
-    @GetMapping("/seguro/edit")
-    public ModelMap edit(@RequestParam(value = "id", required = true) Seguro seguro) {
-        return new ModelMap("seguro", seguro);
+    seguro.setTipoSeguro(tipoSeguroDao.findByNome(tipoSeguro));
+
+    if(seguro.getCliente() == null) {
+      errors.addError(new ObjectError("ClienteNotFound", "Cliente não existe"));
     }
     
-    @PostMapping("/seguro/edit")
-    public String editConfirm(@Valid @ModelAttribute("seguro") Seguro seguro , BindingResult errors, SessionStatus status) {
-        if (errors.hasErrors()) {
-            return "seguro/edit";
-        }
-        seguroDao.save(seguro);
-        status.setComplete();
-        return "redirect:/seguro/list";
-    }
-
-    @GetMapping("/seguro/delete")
-    public ModelMap deleteConfirm(@RequestParam(value = "id", required = true) Seguro seguro) {
-        return new ModelMap("seguro", seguro);
-    }
-
-    @PostMapping("/seguro/delete")
-    public Object delete(@ModelAttribute Seguro seguro , SessionStatus status) {
-        try{
-        	seguroDao.delete(seguro);
-        } catch (DataIntegrityViolationException exception) {
-            status.setComplete();
-            return new ModelAndView("error/errorHapus")
-                    .addObject("entityId", seguro.getNome())
-                    .addObject("entityName", "Seguro")
-                    .addObject("errorCause", exception.getRootCause().getMessage())
-                    .addObject("backLink","/seguro/list");
-        }
-        status.setComplete();
-        return "redirect:/seguro/list";
+    if(seguro.getTipoSeguro() == null) {
+      errors.addError(new ObjectError("TipoSeguroNotFound", "Tipo Seguro não existe"));
     }
     
-//    @GetMapping("seguro/search")
-//    public String search(@ModelAttribute("cpf") String cpf, Model model ) {
-//    
-//    	System.out.println(cpf);
-//    	
-//    	return "seguro/form";
-//    }
+    if (errors.hasErrors()) {
+      return "seguro/form";
+    }
     
-    @RequestMapping(value="/search")
-    public Object postPrintHello(@ModelAttribute("cpfcnpj") String cpfcnpj, @ModelAttribute("tipoPessoa") String tipoPessoa, Model model, BindingResult errors, SessionStatus status ){
-    	ModelAndView model1 = new ModelAndView();
-    	Seguro seguro = new Seguro();
-    	
-    	if (errors.hasErrors()) {
-    		model1.setViewName("seguro/form");
-    		return model1;
-        }
-        
-        try {
-        	if(tipoPessoa.equals("FISICA")) {
-            	seguro.setCliente(clienteDao.findByCpf(cpfcnpj));
-            }else {
-            	seguro.setCliente(clienteDao.findByCnpj(cpfcnpj));
-            }
-        	
-    		model1.setViewName("seguro/form");
-    		
-            return "redirect:/seguro/form";
 
-		} catch (Exception e) {
-			errors.addError(new ObjectError("ClienteNotFound", "Cliente não existe"));
-			model1.setViewName("seguro/form");
-            return model1;
+    seguroDao.save(seguro);
+    status.setComplete();
+    return "redirect:/seguro/list";
+  }
 
-		}
-    	
-    	
-        
-//        model1.addObject("cliente", new Cliente());
-        
+  @GetMapping("/seguro/edit")
+  public ModelMap edit(@RequestParam(value = "id", required = true) Seguro seguro) {
+    return new ModelMap("seguro", seguro);
+  }
+
+  @PostMapping("/seguro/edit")
+  public String editConfirm(@Valid @ModelAttribute("seguro") Seguro seguro, BindingResult errors,
+      SessionStatus status) {
+    if (errors.hasErrors()) {
+      return "seguro/edit";
+    }
+    seguroDao.save(seguro);
+    status.setComplete();
+    return "redirect:/seguro/list";
+  }
+
+  @GetMapping("/seguro/delete")
+  public ModelMap deleteConfirm(@RequestParam(value = "id", required = true) Seguro seguro) {
+    return new ModelMap("seguro", seguro);
+  }
+
+  @PostMapping("/seguro/delete")
+  public Object delete(@ModelAttribute Seguro seguro, SessionStatus status) {
+    try {
+      seguroDao.delete(seguro);
+    } catch (DataIntegrityViolationException exception) {
+      status.setComplete();
+      return new ModelAndView("error/errorHapus").addObject("entityId", seguro.getNome())
+          .addObject("entityName", "Seguro")
+          .addObject("errorCause", exception.getRootCause().getMessage())
+          .addObject("backLink", "/seguro/list");
+    }
+    status.setComplete();
+    return "redirect:/seguro/list";
+  }
+
+  // @GetMapping("seguro/search")
+  // public String search(@ModelAttribute("cpf") String cpf, Model model ) {
+  //
+  // System.out.println(cpf);
+  //
+  // return "seguro/form";
+  // }
+
+  @RequestMapping(value = "/search")
+  public Object postPrintHello(@ModelAttribute("cpfcnpj") String cpfcnpj,
+      @ModelAttribute("tipoPessoa") String tipoPessoa, Model model, BindingResult errors,
+      SessionStatus status) {
+    ModelAndView model1 = new ModelAndView();
+    Seguro seguro = new Seguro();
+
+    if (errors.hasErrors()) {
+      model1.setViewName("seguro/form");
+      return model1;
     }
 
-	public Cliente getCliente() {
-		return cliente;
-	}
+    try {
+      if (tipoPessoa.equals("FISICA")) {
+        seguro.setCliente(clienteDao.findByCpf(cpfcnpj));
+      } else {
+        seguro.setCliente(clienteDao.findByCnpj(cpfcnpj));
+      }
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+      model1.setViewName("seguro/form");
+
+      return "redirect:/seguro/form";
+
+    } catch (Exception e) {
+      errors.addError(new ObjectError("ClienteNotFound", "Cliente não existe"));
+      model1.setViewName("seguro/form");
+      return model1;
+
+    }
+
+
+
+    // model1.addObject("cliente", new Cliente());
+
+  }
+
+  public Cliente getCliente() {
+    return cliente;
+  }
+
+  public void setCliente(Cliente cliente) {
+    this.cliente = cliente;
+  }
 
 }
 

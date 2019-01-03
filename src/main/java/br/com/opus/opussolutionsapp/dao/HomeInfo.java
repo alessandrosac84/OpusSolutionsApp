@@ -1,13 +1,11 @@
-package br.com.opus.opussolutionsapp.dao.impl;
+package br.com.opus.opussolutionsapp.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import br.com.opus.opussolutionsapp.dao.SeguroDao;
 
 @Repository
-abstract class SeguroDaoImpl implements SeguroDao{
+public class HomeInfo {
   
   @Autowired
   private JdbcTemplate template;
