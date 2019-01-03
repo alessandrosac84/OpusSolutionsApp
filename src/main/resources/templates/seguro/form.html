@@ -58,24 +58,27 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 
-                <form th:object="${cpfcnpj}" method="post">
-        			<div class="box-body">
-                            <div class="input-group input-group-sm" style="width: 250px;">
-                                <input type="text" name="cpfcnpj" class="form-control pull-right"
-                                       placeholder="Pesquisa por CPF/CPJ" th:if="${key} == null"/>
-                                <div class="input-group-btn">
-                                    <button  class="btn btn-default"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>        			
-        			</div>
-		    </form>
+<!--                 <form th:object="${cpfcnpj}" method="post" th:action="@{/search}"> -->
+<!--         			<div class="box-body"> -->
+<!--                             <div class="input-group input-group-sm" style="width: 250px;"> -->
+<!--                                 <input type="text" name="cpfcnpj" class="form-control pull-right" -->
+<!--                                        placeholder="Pesquisa por CPF/CPJ" th:if="${key} == null"/> -->
+<!--                                 <div class="input-group-btn"> -->
+<!--                                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button> -->
+<!--                                 </div> -->
+<!--                             </div>    	 -->
+<!--         			</div> -->
+<!--         			<label for="tipoPessoa">Tipo Pessoa</label> -->
+<!--                             <select style="width: 100px;" id="tipoPessoa" name="tipoPessoa" required > -->
+<!-- 							  <option></option> -->
+<!-- 							  <option value="FISICA">FÍSICA</option> -->
+<!-- 							  <option value="JURIDICA">JURÍDICA</option> -->
+<!-- 							</select>  -->
+<!-- 		    </form> -->
                 
                 <form role="form" th:object="${seguro}" method="post">
                               
                     <div class="box-body">
-                    
-                    
-                    
 <!--                             <div class="input-group input-group-sm" style="width: 250px;"> -->
 <!--                                 <input type="text" name="value" class="form-control pull-right" -->
 <!--                                        placeholder="Pesquisa por CPF/CPJ" th:if="${key} == null"/> -->
@@ -151,11 +154,22 @@
                         
                         <div class="form-group">
                             <label for="tipoSeguro">Tipo Seguro</label>
+<!--                             <select style="width: 130px;" id="tipoSeguro" name="tipoSeguro"> -->
+<!-- 						        <option></option> -->
+<!-- 						        <option th:each="tp : ${tiposDeSeguro}" -->
+<!-- 						                th:value="${tp}" -->
+<!-- 						                th:text="${tp.nome}" -->
+<!-- 						                th:selected="${tp.equals(tipoSeguro)}"/> -->
+<!-- 						    </select> -->
+<!-- 							<label class="control-label error-label"  th:if="${#fields.hasErrors('tipoSeguro')}"th:errors="*{tipoSeguro}"> -->
+<!--                                 Mensagem de erro mais tarde aqui -->
+<!--                             </label>                            -->
+                            
                             <select style="width: 100px;" id="tipoSeguro" name="tipoSeguro">
 							  <option></option>
-							  <option value="AUTOMOVEL">AUTOMÓVEL</option>
+							  <option value="AUTOMÓVEL">AUTOMÓVEL</option>
 							  <option value="EMPRESARIAL">EMPRESARIAL</option>
-							  <option value="SAUDE">SAÚDE</option>
+							  <option value="SAÚDE">SAÚDE</option>
 							</select>
                             <label class="control-label error-label"  th:if="${#fields.hasErrors('tipoSeguro')}"th:errors="*{tipoSeguro}">
                                 Mensagem de erro mais tarde aqui

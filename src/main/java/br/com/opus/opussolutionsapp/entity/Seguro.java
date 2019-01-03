@@ -23,11 +23,11 @@ public class Seguro {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "clienteFK")
     private Cliente cliente;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_seguroFK")
     private TipoSeguro tipoSeguro;
     

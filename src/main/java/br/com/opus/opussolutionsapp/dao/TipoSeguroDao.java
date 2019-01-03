@@ -11,4 +11,6 @@ import br.com.opus.opussolutionsapp.entity.TipoSeguro;
 @Repository
 public interface TipoSeguroDao extends PagingAndSortingRepository<TipoSeguro, String> {
     Page<TipoSeguro>findByNomeContainingIgnoreCase(String nome, Pageable pageable);
+    
+    TipoSeguro findByNome(String tipoSeguro);
 }

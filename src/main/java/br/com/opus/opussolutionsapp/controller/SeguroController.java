@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.opus.opussolutionsapp.dao.ClienteDao;
 import br.com.opus.opussolutionsapp.dao.SeguroDao;
+import br.com.opus.opussolutionsapp.dao.TipoSeguroDao;
 import br.com.opus.opussolutionsapp.entity.Cliente;
 import br.com.opus.opussolutionsapp.entity.Seguro;
 
@@ -32,6 +33,9 @@ public class SeguroController {
     
     @Autowired
     private ClienteDao clienteDao;
+    
+    @Autowired
+    private TipoSeguroDao tipoSeguroDao;
     
     private Cliente cliente;
 
@@ -50,14 +54,32 @@ public class SeguroController {
         if (seguro == null) {
         	seguro = new Seguro();
         }
-        return new ModelMap("seguro", seguro);
+        
+        ModelMap map = new ModelMap();
+        map.addAttribute("tiposDeSeguro", tipoSeguroDao.findAll());
+        map.addAttribute("seguro", seguro);
+        return map;
     }
 
     @PostMapping("/seguro/form")
-    public String save(@Valid @ModelAttribute("seguro") Seguro seguro , BindingResult errors, SessionStatus status) {
+    public String save(@Valid @ModelAttribute("seguro") Seguro seguro,  @ModelAttribute("tipoSeguro") String tipoSeguro , BindingResult errors, SessionStatus status,
+    		Pageable pageable) {
+    	seguro.setCliente(new Cliente());
         if (errors.hasErrors()) {
             return "seguro/form";
         }
+        
+        if(seguro.getTipoPessoa().equals("FISICA")) {
+        	seguro.setCliente(clienteDao.findByCpf(seguro.getCpf()));
+        }else if (seguro.getTipoPessoa().equals("JURIDICA")) {
+        	seguro.setCliente(clienteDao.findByCnpj(seguro.getCnpj()));
+        }else {
+        	errors.addError(new ObjectError("ClienteNotFound", "Cliente não existe"));
+        	return "seguro/form";
+        }
+        
+       seguro.setTipoSeguro(tipoSeguroDao.findByNome(tipoSeguro));
+        
         
         seguroDao.save(seguro);
         status.setComplete();
@@ -109,8 +131,9 @@ public class SeguroController {
 //    }
     
     @RequestMapping(value="/search")
-    public ModelAndView postPrintHello(@ModelAttribute("cpfcnpj") String cpfcnpj, @ModelAttribute("tipoPessoa") String tipoPessoa, Model model, BindingResult errors, SessionStatus status ){
+    public Object postPrintHello(@ModelAttribute("cpfcnpj") String cpfcnpj, @ModelAttribute("tipoPessoa") String tipoPessoa, Model model, BindingResult errors, SessionStatus status ){
     	ModelAndView model1 = new ModelAndView();
+    	Seguro seguro = new Seguro();
     	
     	if (errors.hasErrors()) {
     		model1.setViewName("seguro/form");
@@ -119,13 +142,14 @@ public class SeguroController {
         
         try {
         	if(tipoPessoa.equals("FISICA")) {
-            	setCliente(clienteDao.findByCpf(cpfcnpj));
+            	seguro.setCliente(clienteDao.findByCpf(cpfcnpj));
             }else {
-            	setCliente(clienteDao.findByCnpj(cpfcnpj));
+            	seguro.setCliente(clienteDao.findByCnpj(cpfcnpj));
             }
         	
     		model1.setViewName("seguro/form");
-            return model1;
+    		
+            return "redirect:/seguro/form";
 
 		} catch (Exception e) {
 			errors.addError(new ObjectError("ClienteNotFound", "Cliente não existe"));
