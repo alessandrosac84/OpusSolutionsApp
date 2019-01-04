@@ -371,7 +371,7 @@
                             <label for="dataProposta">Data Proposta</label>
                             <input type="text"
                                    th:field="*{dataProposta}"
-                                   name="dataProposta" class="form-control" id="dataProposta" placeholder="Data Proposta" onkeypress="formatar('##/##/####', this);" maxlength="10"/>
+                                   name="dataProposta" class="form-control" id="dataProposta" placeholder="Data Proposta" onKeyPress="MascaraData(dataProposta);" maxlength="10" onBlur="ValidaData(dataProposta);"/>
                             <label class="control-label error-label" th:if="${#fields.hasErrors('dataProposta')}" th:errors="*{dataProposta}">
                                 Mensagem de erro mais tarde aqui
                             </label>
