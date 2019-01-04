@@ -6,6 +6,7 @@
     <title>Home</title>
     <link rel="icon" href="#" th:href="@{/img/favicon.ico}" type="image/x-icon"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+       
 </head>
 <body>
 <div layout:fragment="content">
@@ -86,7 +87,7 @@
 	              <i class="fa fa-th"></i>
 	
 	              <h3 class="box-title">Seguros por Seguradora</h3>
-	            </div>
+		            </div>
 	            <div class="box-body border-radius-none">
 	            	<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
 	            </div>
@@ -98,6 +99,9 @@
 </html>
 
 <script>
+
+
+
 //Bar chart
 new Chart(document.getElementById("bar-chart-grouped"), {
     type: 'bar',
@@ -196,6 +200,14 @@ var jsonfile = {
 			      "totalMes": 0
 			   }]
 		};
+		
+		
+
+var mydata = $.getJSON("json/test.json", function(data) {
+    //Aqui você manipula os dados e pode percorrer e jogar no HTML 
+    //da forma que achar mais adequada.
+      console.log(mydata.responseJSON); 
+  });
 
 		var labels = jsonfile.jsonarraychartline.map(function(e) {
 		   return e.mes;
