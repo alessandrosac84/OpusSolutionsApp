@@ -203,18 +203,32 @@ var jsonfile = {
 		
 		
 
-var mydata = $.getJSON("json/test.json", function(data) {
+var mydata = $.getJSON("json/test.json", function(dataJson) {
     //Aqui você manipula os dados e pode percorrer e jogar no HTML 
     //da forma que achar mais adequada.
-      console.log(mydata.responseJSON); 
-  });
+    
+var dataTeste = JSON.parse(mydata.responseText);
 
-		var labels = jsonfile.jsonarraychartline.map(function(e) {
-		   return e.mes;
-		});
-		var data = jsonfile.jsonarraychartline.map(function(e) {
-		   return e.totalMes;
-		});;
+  	
+    var labels = [];
+    var data = [];
+
+    for(var i = 0; i < dataTeste.length; i++){
+    	labels.push(dataTeste[i].mes)
+    	
+    }
+    
+    for(var i = 0; i < dataTeste.length; i++){
+    	data.push(dataTeste[i].totalmes)
+    	
+    }
+    
+//     var labels = jsonfile.jsonarraychartline.map(function(e) {
+// 		   return e.mes;
+// 		});
+// 		var data = jsonfile.jsonarraychartline.map(function(e) {
+// 		   return e.totalMes;
+// 		});;
 
 		var ctx = lineChart.getContext('2d');
 		var config = {
@@ -230,6 +244,15 @@ var mydata = $.getJSON("json/test.json", function(data) {
 		};
 
 		var chart = new Chart(ctx, config);
+    
+    
+//     console.log(dataTeste)
+//       console.log(mydata); 
+  });
+
+
+
+		
 
 
 // new Chart(document.getElementById("line-chart"), {
