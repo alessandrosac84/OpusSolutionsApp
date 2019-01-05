@@ -148,7 +148,7 @@
                             <label for="telefone">Telefone</label>
                             <input type="text"
                                    th:field="*{telefone}" required="true"
-                                   name="telefone" class="form-control" id="telefone" placeholder="Telefone Principal" onkeypress="formatar('## ####-####', this);" maxlength="12" />
+                                   name="telefone" class="form-control" id="telefone" placeholder="Telefone Principal" onkeypress="formatar('##-####-####', this);" maxlength="12" />
                             <label class="control-label error-label" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}">
                                 Mensagem de erro mais tarde aqui
                             </label>
@@ -158,7 +158,7 @@
                             <label for="celular">Celular</label>
                             <input type="text"
                                    th:field="*{celular}"
-                                   name="celular" class="form-control" id="celular" placeholder="Celular" onkeypress="formatar('## #####-####', this);" maxlength="13" />
+                                   name="celular" class="form-control" id="celular" placeholder="Celular" onkeypress="formatar('##-#####-####', this);" maxlength="13" />
                             <label class="control-label error-label" th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}">
                                 Mensagem de erro mais tarde aqui
                             </label>

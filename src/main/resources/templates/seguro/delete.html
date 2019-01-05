@@ -3,40 +3,13 @@
 <head>
     <title>Excluir Dados</title>
     
-       <script>
-    
-    $(window).load(    
-	    function tipoPessoa(){
-	        valorSelecionado = $('#tipoPessoa').val();
-	       
-	        switch(valorSelecionado) {
-	            case "FISICA":
-	                $('#group-cpf').show();
-	                $('#group-cnpj').hide();
-	                $('#group-razao-social').hide();
-	                break;
-	
-	            case "JURIDICA":
-	                $('#group-cpf').hide();
-	                $('#group-cnpj').show();
-	                $('#group-razao-social').show();
-	                break;
-	
-	            default :
-	                $('#group-cpf').hide();
-	                $('#group-cnpj').hide();
-	                $('#group-razao-social').hide();
-	                break;
-	        }
-	    });
-    </script>
 </head>
 <body>
 <div layout:fragment="breadcrumb">
-    <h1>Excluir dados do cliente?</h1>
+    <h1>Excluir dados do Seguro?</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Excluir dados do cliente</li>
+        <li class="active">Excluir dados do Seguro</li>
     </ol>
 </div>
 <div layout:fragment="content">
@@ -48,7 +21,7 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" th:object="${cliente}" method="post">
+                <form role="form" th:object="${seguro}" method="post">
 
                     <div class="box-body">
                         <div class="form-group">
@@ -89,16 +62,6 @@
                             </label>
                         </div>
                         
-                        <div class="form-group" id="group-razao-social" hidden="true">
-                            <label for="razaoSocial">Razão Social</label>
-                            <input type="text" disabled
-                                   th:field="*{razaoSocial}"
-                                   name="razaoSocial" class="form-control" id="razaoSocial" placeholder="Razão Social" />
-                            <label class="control-label error-label" th:if="${#fields.hasErrors('razaoSocial')}" th:errors="*{razaoSocial}">
-                                Mensagem de erro mais tarde aqui
-                            </label>
-                        </div>
-                        
                         <div class="form-group">
                             <label for="status">Status</label>
                             <input type="text"
@@ -110,7 +73,7 @@
                         </div>
 
                         <div class="form-group">
-                            <a th:href="@{/cliente/list}" class="btn btn-default" role="button" title="Back list">
+                            <a th:href="@{/seguro/list}" class="btn btn-default" role="button" title="Back list">
                                 <span aria-hidden="true"></span>Cancelar
                             </a>
                             <button type="submit" class="btn btn-danger" title="Deletar Dados">Excluir</button>

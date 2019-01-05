@@ -50,8 +50,8 @@
                                 <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="nome">Item Segurado</a></th>
                                 <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="tipoSeguro.nome">Tipo Seguro</a></th>
                                 <th><a class="fa fa-fw fa-sort"></a><a>Valor do Seguro</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>Importância Segurada</a></th>
-                                <th><a class="fa fa-fw fa-sort"></a><a>Comissão</a>
+<!--                                 <th><a class="fa fa-fw fa-sort"></a><a>Importância Segurada</a></th> -->
+<!--                                 <th><a class="fa fa-fw fa-sort"></a><a>Comissão</a> -->
                                 <th><a class="fa fa-fw fa-sort"></a><a>Data Proposta</a></th>
                                 <th><a class="fa fa-fw fa-sort"></a><a>Início Vigência</a></th>
                                 <th><a class="fa fa-fw fa-sort"></a><a>Fim Vigência</a></th>
@@ -63,12 +63,12 @@
                             <tr th:each="st,iter : ${seguro}">
                                 <td th:text="${iter.count}"></td>
                                 <td th:text="${st.cliente.nome}"></td>
-                                <td th:text="${st.cliente.cpf}"></td>
+                                <td th:text="${st.cliente.cpf != ''} ? ${st.cliente.cpf} : ${st.cliente.cnpj}"></td>
                                 <td th:text="${st.nome}"></td>
                                 <td th:text="${st.tipoSeguro.nome}"></td>
                                 <td th:text="${st.valorSeguro}"></td>
-                                <td th:text="${st.valorSegurado}"></td>
-                                <td th:text="${st.percentualComissao}"></td>
+<!--                                 <td th:text="${st.valorSegurado}"></td> -->
+<!--                                 <td th:text="${st.percentualComissao}"></td> -->
                                 <td th:text="${st.dataProposta}"></td>
                                 <td th:text="${st.dataInicioVigencia}"></td>
                                 <td th:text="${st.dataFimVigencia}"></td>

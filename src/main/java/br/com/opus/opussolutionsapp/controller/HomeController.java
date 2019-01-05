@@ -16,9 +16,9 @@ public class HomeController {
 	@GetMapping("/")
 	public String homePage(HttpSession session) {
 		session.setAttribute("qtdSeguros", homeInfo.obterTotalSeguros());
-		session.setAttribute("qtdSegurosThisMonth", 10);
-		session.setAttribute("qtdRenovacoesThisMonth", 2);
-		session.setAttribute("qtdLost", 1);
+		session.setAttribute("qtdSegurosThisMonth", homeInfo.obterTotalSegurosDesteMes());
+		session.setAttribute("qtdRenovacoesThisMonth", homeInfo.obterTotalRenovacoesDesteMes());
+		session.setAttribute("qtdLost", homeInfo.obterTotalPerdasDesteMes());
 		return "home";
 	}
 }
