@@ -1,0 +1,12 @@
+[ 
+    {"name": "Porto Seguro", "value": 11, "background": "rgba(0, 119, 204, 0.3)"},
+    {"name": "Azul Seguros", "value": 2, "background": "rgba(2, 255, 5, 0.3)"},
+    {"name": "Itáu", "value": 4},
+    {"name": "Tokio Marine", "value": 6},
+    {"name": "Allianz", "value": 0},
+    {"name": "Liberty Seguros", "value": 9},
+    {"name": "Suhai", "value": 3},
+    {"name": "HDI", "value": 15},
+    {"name": "Bradesco", "value": 20},
+    {"name": "Mapfre", "value": 1}
+]

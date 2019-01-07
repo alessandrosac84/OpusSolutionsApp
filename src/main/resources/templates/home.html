@@ -89,7 +89,7 @@
 	              <h3 class="box-title">Seguros por Seguradora</h3>
 		            </div>
 	            <div class="box-body border-radius-none">
-	            	<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
+	            	<canvas id="barchartgrouped" width="800" height="450"></canvas>
 	            </div>
 		  </div>
 	</div>
@@ -103,132 +103,120 @@
 
 
 //Bar chart
-new Chart(document.getElementById("bar-chart-grouped"), {
-    type: 'bar',
-    data: {
-      labels: ["Automotivo"],
-      datasets: [
-        {
-          label: "Porto Seguro",
-          backgroundColor: "#3e95cd",
-          data: [5]
-        }, {
-          label: "Azul Seguros",
-          backgroundColor: "#66ffff",
-          data: [5]
-        }, {
-          label: "Itáu",
-          backgroundColor: "#ffff00",
-          data: [2]
-        }, {
-          label: "Tokio Marine",
-          backgroundColor: "#33cc33",
-          data: [4]
-        }, {
-          label: "Allianz",
-          backgroundColor: "#3333ff",
-          data: [1]
-        }, {
-          label: "Liberty Seguros",
-          backgroundColor: "#99ccff",
-          data: [2]
-        }, {
-          label: "Suhai",
-          backgroundColor: "#66ff99",
-          data: [1]
-        }, {
-          label: "HDI",
-          backgroundColor: "#ffcc66",
-          data: [1]
-        }, {
-          label: "BRADESCO",
-          backgroundColor: "#ff3300",
-          data: [2]
-        }, {
-          label: "MAPFRE",
-          backgroundColor: "#cc9900",
-          data: [3]
-        }
+// new Chart(document.getElementById("barchartgrouped"), {
+//     type: 'bar',
+//     data: {
+//       labels: ["Automotivo"],
+//       datasets: [
+//         {
+//           label: "Porto Seguro",
+//           backgroundColor: "#3e95cd",
+//           data: [5]
+//         }, {
+//           label: "Azul Seguros",
+//           backgroundColor: "#66ffff",
+//           data: [5]
+//         }, {
+//           label: "Itáu",
+//           backgroundColor: "#ffff00",
+//           data: [2]
+//         }, {
+//           label: "Tokio Marine",
+//           backgroundColor: "#33cc33",
+//           data: [4]
+//         }, {
+//           label: "Allianz",
+//           backgroundColor: "#3333ff",
+//           data: [1]
+//         }, {
+//           label: "Liberty Seguros",
+//           backgroundColor: "#99ccff",
+//           data: [2]
+//         }, {
+//           label: "Suhai",
+//           backgroundColor: "#66ff99",
+//           data: [1]
+//         }, {
+//           label: "HDI",
+//           backgroundColor: "#ffcc66",
+//           data: [1]
+//         }, {
+//           label: "BRADESCO",
+//           backgroundColor: "#ff3300",
+//           data: [2]
+//         }, {
+//           label: "MAPFRE",
+//           backgroundColor: "#cc9900",
+//           data: [3]
+//         }
         
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Crescimento Mensal'
-      }
-    }
-});
+//       ]
+//     },
+//     options: {
+//       title: {
+//         display: true,
+//         text: 'Crescimento Mensal'
+//       }
+//     }
+// });
 
 
-var jsonfile = {
-		   "jsonarraychartline": [{
-			      "mes": "Janeiro",
-			      "totalMes": 12
-			   }, {
-			      "mes": "Fevereiro",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Março",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Abril",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Maio",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Junho",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Julho",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Agosto",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Setembro",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Outubro",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Novembro",
-			      "totalMes": 0
-			   }, {
-			      "mes": "Dezembro",
-			      "totalMes": 0
-			   }]
-		};
+// var jsonfile = {
+// 		   "jsonarraychartline": [{
+// 			      "mes": "Janeiro",
+// 			      "totalMes": 12
+// 			   }, {
+// 			      "mes": "Fevereiro",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Março",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Abril",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Maio",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Junho",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Julho",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Agosto",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Setembro",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Outubro",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Novembro",
+// 			      "totalMes": 0
+// 			   }, {
+// 			      "mes": "Dezembro",
+// 			      "totalMes": 0
+// 			   }]
+// 		};
 		
 		
 
-var mydata = $.getJSON("json/test.json", function(dataJson) {
-    //Aqui você manipula os dados e pode percorrer e jogar no HTML 
-    //da forma que achar mais adequada.
+var evolutionJson = $.getJSON("json/evolution.json", function(dataJson) {
     
-var dataTeste = JSON.parse(mydata.responseText);
-
+var dataEvolution = JSON.parse(evolutionJson.responseText);
   	
     var labels = [];
     var data = [];
 
-    for(var i = 0; i < dataTeste.length; i++){
-    	labels.push(dataTeste[i].mes)
-    	
+    for(var i = 0; i < dataEvolution.length; i++){
+    	labels.push(dataEvolution[i].mes)
     }
     
-    for(var i = 0; i < dataTeste.length; i++){
-    	data.push(dataTeste[i].totalmes)
-    	
+    for(var i = 0; i < dataEvolution.length; i++){
+    	data.push(dataEvolution[i].totalmes)
     }
-    
-//     var labels = jsonfile.jsonarraychartline.map(function(e) {
-// 		   return e.mes;
-// 		});
-// 		var data = jsonfile.jsonarraychartline.map(function(e) {
-// 		   return e.totalMes;
-// 		});;
 
 		var ctx = lineChart.getContext('2d');
 		var config = {
@@ -250,7 +238,51 @@ var dataTeste = JSON.parse(mydata.responseText);
 //       console.log(mydata); 
   });
 
+var seguroPorSeguradoraJson = $.getJSON("json/seguroPorSeguradora.json", function(dataJson) {
+    
+	var dataSeguroPorSeguradora = JSON.parse(seguroPorSeguradoraJson.responseText);
+	  	
+	    var labels = [];
+	    var data = [];
+	    var background = [];
 
+	    for(var i = 0; i < dataSeguroPorSeguradora.length; i++){
+	    	labels.push(dataSeguroPorSeguradora[i].name)
+	    }
+	    
+	    for(var i = 0; i < dataSeguroPorSeguradora.length; i++){
+	    	data.push(dataSeguroPorSeguradora[i].value)
+	    }
+	    
+	    for(var i = 0; i < dataSeguroPorSeguradora.length; i++){
+	    	background.push(dataSeguroPorSeguradora[i].background)
+	    }
+
+			var ctx = barchartgrouped.getContext('2d');
+			var config = {
+			   type: 'bar',
+			   data: {
+			      labels: labels,
+			      datasets: [{
+			         label: 'Total de Seguros por Seguradora',
+			         data: data,
+			         backgroundColor: background
+			      }],
+			      options: {
+				        title: {
+				          display: true,
+				          text: 'Total de Seguros por Seguradora'
+				        }
+				      }
+			   }
+			};
+
+			var chart = new Chart(ctx, config);
+	    
+	    
+//	     console.log(dataTeste)
+//	       console.log(mydata); 
+	  });
 
 		
 
