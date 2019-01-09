@@ -260,7 +260,7 @@
 		
 
 var evolutionJson = $.getJSON("json/evolution.json", function(dataJson) {
-    
+
 var dataEvolution = JSON.parse(evolutionJson.responseText);
   	
     var labels = [];
@@ -271,7 +271,7 @@ var dataEvolution = JSON.parse(evolutionJson.responseText);
     }
     
     for(var i = 0; i < dataEvolution.length; i++){
-    	data.push(dataEvolution[i].totalmes)
+    	data.push(dataEvolution[i].totalMes)
     }
 
 		var ctx = lineChart.getContext('2d');
