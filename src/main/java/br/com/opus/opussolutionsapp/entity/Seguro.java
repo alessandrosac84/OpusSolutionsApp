@@ -71,6 +71,10 @@ public class Seguro {
     
     @Transient
     private String tipoPessoa;
+    
+    @Size(max = 255)
+    @Column(nullable = true)
+    private String seguradora;
 
 	public String getId() {
 		return id;
@@ -182,6 +186,14 @@ public class Seguro {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public String getSeguradora() {
+		return seguradora;
+	}
+
+	public void setSeguradora(String seguradora) {
+		this.seguradora = seguradora;
 	}
     
 

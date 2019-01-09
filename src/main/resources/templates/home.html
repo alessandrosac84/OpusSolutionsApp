@@ -9,9 +9,9 @@
        
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" style="margin-top: -40px;">
 
-    <h1>Opus Solutions Manager</h1>
+    <h2>Opus Solutions Manager</h2>
      <section class="content">
       
       <div class="row">
@@ -70,6 +70,43 @@
           </div>
         </div>
       </div>
+      
+      <div class="row">
+		  <div class="col-sm-3">
+			  <div class="box-header">
+	              <h3 class="box-title" style="margin-left: 100px;">Vendas</h3>
+		            </div>
+	            <div class="box-body border-radius-none">
+	            <canvas id="myChart" width="800" height="450" style="opacity: 0.6"></canvas>
+            </div>
+		  </div>
+		  <div class="col-sm-3">
+			  <div class="box-header">
+	              <h3 class="box-title" style="margin-left: 100px;">Orçamentos</h3>
+		            </div>
+	            <div class="box-body border-radius-none">
+	            	<canvas id="myChart2" width="800" height="450" style="opacity: 0.6"></canvas>
+	            </div>
+		  </div>
+		  
+		  <div class="col-sm-3">
+			  <div class="box-header">
+					<h3 class="box-title" style="margin-left: 100px;">Ligações</h3>
+	            </div>
+	            <div class="box-body border-radius-none">
+	            	<canvas id="myChart3" width="800" height="450" style="opacity: 0.6"></canvas>
+	            </div>
+		  </div>
+		  
+		  <div class="col-sm-3">
+			  <div class="box-header">
+	              <h3 class="box-title" style="margin-left: 50px;">Taxa de conversão</h3>
+	            </div>
+	            <div class="box-body border-radius-none">
+	            	<canvas id="myChart4" width="800" height="450" style="opacity: 0.6"></canvas>
+	            </div>
+		  </div>
+	</div>
       
       <div class="row">
 		  <div class="col-sm-6">
@@ -201,6 +238,25 @@
 // 			   }]
 // 		};
 		
+// new Chart(document.getElementById("line-chart"), {
+// 	  type: 'line',
+// 	  data: {
+// 	    labels: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro", "Dezembro"],
+// 	    datasets: [{ 
+// 	        data: [1,5,10,16,27,10,50,35,22,77,100,90],
+// 	        label: "Seguros",
+// 	        borderColor: "red",
+// 	        fill: false
+// 	      }
+// 	    ]
+// 	  },
+// 	  options: {
+// 	    title: {
+// 	      display: true,
+// 	      text: 'Crescimento Mensal de Seguros Opus'
+// 	    }
+// 	  }
+// 	});		
 		
 
 var evolutionJson = $.getJSON("json/evolution.json", function(dataJson) {
@@ -284,26 +340,115 @@ var seguroPorSeguradoraJson = $.getJSON("json/seguroPorSeguradora.json", functio
 //	       console.log(mydata); 
 	  });
 
+//Indicadores	
+	
+Chart.pluginService.register({
+		beforeDraw: function (chart) {
+			if (chart.config.options.elements.center) {
+        //Get ctx from string
+        var ctx = chart.chart.ctx;
+        
+				//Get options from the center object in options
+        var centerConfig = chart.config.options.elements.center;
+      	var fontStyle = centerConfig.fontStyle || 'Arial';
+				var txt = centerConfig.text;
+        var color = centerConfig.color || '#000';
+        var sidePadding = centerConfig.sidePadding || 20;
+        var sidePaddingCalculated = (sidePadding/100) * (chart.innerRadius * 2)
+        //Start with a base font of 30px
+        ctx.font = "30px " + fontStyle;
+        
+				//Get the width of the string and also the width of the element minus 10 to give it 5px side padding
+        var stringWidth = ctx.measureText(txt).width;
+        var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
+
+        // Find out how much the font can grow in width.
+        var widthRatio = elementWidth / stringWidth;
+        var newFontSize = Math.floor(30 * widthRatio);
+        var elementHeight = (chart.innerRadius * 2);
+
+        // Pick a new font size so it will not be larger than the height of label.
+        var fontSizeToUse = Math.min(newFontSize, elementHeight);
+
+				//Set font settings to draw it correctly.
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
+        var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+        ctx.font = fontSizeToUse+"px " + fontStyle;
+        ctx.fillStyle = color;
+        
+        //Draw text in center
+        ctx.fillText(txt, centerX, centerY);
+			}
+		}
+	});
+
+var progressVendas = 100;
+
+var collor ;
+if(progressVendas = 100){
+	collor = [
+		  "#0fba00",
+		  "#ffffff",
+		]
+}
+
+if(progressVendas > 75 && progressVendas < 99){
+	collor = [
+		  "#ffe900",
+		  "#ffffff",
+		]
+}
+
+if(progressVendas < 75 && progressVendas > 50){
+	collor = [
+		  "#ffc4c4",
+		  "#ffffff",
+		]
+}
+
+if(progressVendas < 50){
+	collor = [
+		  "#ff0000",
+		  "#ffffff",
+		]
+}
+		var config = {
+			type: 'doughnut',
+			data: {
+				labels: [
+				  "Atingido",
+				  "Não Atingido",
+				],
+				datasets: [{
+					data: [progressVendas, 100 - progressVendas],
+					backgroundColor: collor,
+					hoverBackgroundColor: collor
+				}]
+			},
+		options: {
+			elements: {
+				center: {
+					text: progressVendas + '%',
+          color: '#050505', // Default is #000000
+          fontStyle: 'Arial', // Default is Arial
+          sidePadding: 20 // Defualt is 20 (as a percentage)
+				}
+			}
+		}
+	};
+
+
+		var ctx = document.getElementById("myChart").getContext("2d");
+		var myChart = new Chart(ctx, config);
 		
-
-
-// new Chart(document.getElementById("line-chart"), {
-// 	  type: 'line',
-// 	  data: {
-// 	    labels: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro", "Dezembro"],
-// 	    datasets: [{ 
-// 	        data: [1,5,10,16,27,10,50,35,22,77,100,90],
-// 	        label: "Seguros",
-// 	        borderColor: "red",
-// 	        fill: false
-// 	      }
-// 	    ]
-// 	  },
-// 	  options: {
-// 	    title: {
-// 	      display: true,
-// 	      text: 'Crescimento Mensal de Seguros Opus'
-// 	    }
-// 	  }
-// 	});
+		var ctx = document.getElementById("myChart2").getContext("2d");
+		var myChart2 = new Chart(ctx, config);
+		
+		var ctx = document.getElementById("myChart3").getContext("2d");
+		var myChart3 = new Chart(ctx, config);
+		
+		var ctx = document.getElementById("myChart4").getContext("2d");
+		var myChart4 = new Chart(ctx, config);
 </script>
