@@ -332,10 +332,7 @@ var seguroPorSeguradoraJson = $.getJSON("json/seguroPorSeguradora.json", functio
 				      }
 			   }
 			};
-
 			var chart = new Chart(ctx, config);
-	    
-	    
 //	     console.log(dataTeste)
 //	       console.log(mydata); 
 	  });
@@ -383,72 +380,270 @@ Chart.pluginService.register({
 			}
 		}
 	});
+	
+var indicadores = $.getJSON("json/indicadores.json", function(dataJsonIndic) {
+	
+	var dataIndicadores = JSON.parse(indicadores.responseText);
+	console.log(dataIndicadores)
+	
+	var progressVendas;
+	var progressOrcamentos;
+	var progressLigacoes;
+	var progressConversao;
+	
+	var collorVendas;
+	var collorOrcamentos;
+	var collorLigacoes;
+	var collorConversao;
+	
+	 for(var i = 0; i < dataIndicadores.length; i++){
+		 
+		 if(dataIndicadores[i].name == 'Vendas'){
+			 progressVendas = dataIndicadores[i].valor;
+			 console.log('VENDAS')
+		     console.log(dataIndicadores[i].name)
+		     console.log(dataIndicadores[i].valor)
+			// var progressVendas = 72;
 
-var progressVendas = 72;
+			 if(progressVendas == 100){
+			 	collorVendas = [
+			 		  "#0fba00",
+			 		  "#ffffff",
+			 		]
+			 }
 
-var collor ;
-if(progressVendas == 100){
-	collor = [
-		  "#0fba00",
-		  "#ffffff",
-		]
-}
+			 if(progressVendas > 75 && progressVendas < 99){
+			 	collorVendas = [
+			 		  "#ffe900",
+			 		  "#ffffff",
+			 		]
+			 }
 
-if(progressVendas > 75 && progressVendas < 99){
-	collor = [
-		  "#ffe900",
-		  "#ffffff",
-		]
-}
+			 if(progressVendas < 75 && progressVendas > 50){
+			 	collorVendas = [
+			 		  "#ffc4c4",
+			 		  "#ffffff",
+			 		]
+			 }
 
-if(progressVendas < 75 && progressVendas > 50){
-	collor = [
-		  "#ffc4c4",
-		  "#ffffff",
-		]
-}
+			 if(progressVendas < 50){
+			 	collorVendas = [
+			 		  "#ff0000",
+			 		  "#ffffff",
+			 		]
+			 }
+			 		var configVendas = {
+			 			type: 'doughnut',
+			 			data: {
+			 				labels: [
+			 				  "Atingido",
+			 				  "Não Atingido",
+			 				],
+			 				datasets: [{
+			 					data: [progressVendas, 100 - progressVendas],
+			 					backgroundColor: collorVendas,
+			 					hoverBackgroundColor: collorVendas
+			 				}]
+			 			},
+			 		options: {
+			 			elements: {
+			 				center: {
+			 					text: progressVendas + '%',
+			           color: '#050505', // Default is #000000
+			           fontStyle: 'Arial', // Default is Arial
+			           sidePadding: 20 // Defualt is 20 (as a percentage)
+			 				}
+			 			}
+			 		}
+			 	};
+		 }
+		 
+		 if(dataIndicadores[i].name == 'Orçamentos'){
+			 progressOrcamentos = dataIndicadores[i].valor;
+			 
+			// var progressOrcamentos = 72;
 
-if(progressVendas < 50){
-	collor = [
-		  "#ff0000",
-		  "#ffffff",
-		]
-}
-		var config = {
-			type: 'doughnut',
-			data: {
-				labels: [
-				  "Atingido",
-				  "Não Atingido",
-				],
-				datasets: [{
-					data: [progressVendas, 100 - progressVendas],
-					backgroundColor: collor,
-					hoverBackgroundColor: collor
-				}]
-			},
-		options: {
-			elements: {
-				center: {
-					text: progressVendas + '%',
-          color: '#050505', // Default is #000000
-          fontStyle: 'Arial', // Default is Arial
-          sidePadding: 20 // Defualt is 20 (as a percentage)
-				}
-			}
-		}
-	};
+			 if(progressOrcamentos == 100){
+			 	collorOrcamentos = [
+			 		  "#0fba00",
+			 		  "#ffffff",
+			 		]
+			 }
 
+			 if(progressOrcamentos > 75 && progressOrcamentos < 99){
+				 collorOrcamentos = [
+			 		  "#ffe900",
+			 		  "#ffffff",
+			 		]
+			 }
 
-		var ctx = document.getElementById("myChart").getContext("2d");
-		var myChart = new Chart(ctx, config);
+			 if(progressOrcamentos < 75 && progressOrcamentos > 50){
+				 collorOrcamentos = [
+			 		  "#ffc4c4",
+			 		  "#ffffff",
+			 		]
+			 }
+
+			 if(progressOrcamentos < 50){
+				 collorOrcamentos = [
+			 		  "#ff0000",
+			 		  "#ffffff",
+			 		]
+			 }
+			 		var configOrcamentos = {
+			 			type: 'doughnut',
+			 			data: {
+			 				labels: [
+			 				  "Atingido",
+			 				  "Não Atingido",
+			 				],
+			 				datasets: [{
+			 					data: [progressOrcamentos, 100 - progressOrcamentos],
+			 					backgroundColor: collorOrcamentos,
+			 					hoverBackgroundColor: collorOrcamentos
+			 				}]
+			 			},
+			 		options: {
+			 			elements: {
+			 				center: {
+			 					text: progressOrcamentos + '%',
+			           color: '#050505', // Default is #000000
+			           fontStyle: 'Arial', // Default is Arial
+			           sidePadding: 20 // Defualt is 20 (as a percentage)
+			 				}
+			 			}
+			 		}
+			 	};
+		 }
+		 
+		 if(dataIndicadores[i].name == 'Ligações'){
+			 progressLigacoes = dataIndicadores[i].valor;
+			 
+			// var progressLigacoes = 72;
+
+			 if(progressLigacoes == 100){
+			 	collorLigacoes = [
+			 		  "#0fba00",
+			 		  "#ffffff",
+			 		]
+			 }
+
+			 if(progressLigacoes > 75 && progressLigacoes < 99){
+				 collorLigacoes = [
+			 		  "#ffe900",
+			 		  "#ffffff",
+			 		]
+			 }
+
+			 if(progressLigacoes < 75 && progressLigacoes > 50){
+				 collorLigacoes = [
+			 		  "#ffc4c4",
+			 		  "#ffffff",
+			 		]
+			 }
+
+			 if(progressLigacoes < 50){
+				 collorLigacoes = [
+			 		  "#ff0000",
+			 		  "#ffffff",
+			 		]
+			 }
+			 		var configLigacoes = {
+			 			type: 'doughnut',
+			 			data: {
+			 				labels: [
+			 				  "Atingido",
+			 				  "Não Atingido",
+			 				],
+			 				datasets: [{
+			 					data: [progressLigacoes, 100 - progressLigacoes],
+			 					backgroundColor: collorLigacoes,
+			 					hoverBackgroundColor: collorLigacoes
+			 				}]
+			 			},
+			 		options: {
+			 			elements: {
+			 				center: {
+			 					text: progressLigacoes + '%',
+			           color: '#050505', // Default is #000000
+			           fontStyle: 'Arial', // Default is Arial
+			           sidePadding: 20 // Defualt is 20 (as a percentage)
+			 				}
+			 			}
+			 		}
+			 	};
+		 }
+		 
+		 if(dataIndicadores[i].name == 'Taxa de Conversão'){
+			 progressConversao = dataIndicadores[i].valor;
+			 
+			// var progressConversao = 72;
+
+			 if(progressConversao == 100){
+			 	collorConversao = [
+			 		  "#0fba00",
+			 		  "#ffffff",
+			 		]
+			 }
+
+			 if(progressConversao > 75 && progressConversao < 99){
+				 collorConversao = [
+			 		  "#ffe900",
+			 		  "#ffffff",
+			 		]
+			 }
+
+			 if(progressConversao < 75 && progressConversao > 50){
+				 collorConversao = [
+			 		  "#ffc4c4",
+			 		  "#ffffff",
+			 		]
+			 }
+
+			 if(progressConversao < 50){
+				 collorConversao = [
+			 		  "#ff0000",
+			 		  "#ffffff",
+			 		]
+			 }
+			 		var configConversao = {
+			 			type: 'doughnut',
+			 			data: {
+			 				labels: [
+			 				  "Atingido",
+			 				  "Não Atingido",
+			 				],
+			 				datasets: [{
+			 					data: [progressConversao, 100 - progressConversao],
+			 					backgroundColor: collorConversao,
+			 					hoverBackgroundColor: collorConversao
+			 				}]
+			 			},
+			 		options: {
+			 			elements: {
+			 				center: {
+			 					text: progressConversao + '%',
+			           color: '#050505', // Default is #000000
+			           fontStyle: 'Arial', // Default is Arial
+			           sidePadding: 20 // Defualt is 20 (as a percentage)
+			 				}
+			 			}
+			 		}
+			 	};
+		 }
+	    }
+	 
+	 var ctxVendas = document.getElementById("myChart").getContext("2d");
+		var myChart = new Chart(ctxVendas, configVendas);
 		
-		var ctx = document.getElementById("myChart2").getContext("2d");
-		var myChart2 = new Chart(ctx, config);
+		var ctxOrcamentos = document.getElementById("myChart2").getContext("2d");
+		var myChart2 = new Chart(ctxOrcamentos, configOrcamentos);
 		
-		var ctx = document.getElementById("myChart3").getContext("2d");
-		var myChart3 = new Chart(ctx, config);
+		var ctxLigacoes = document.getElementById("myChart3").getContext("2d");
+		var myChart3 = new Chart(ctxLigacoes, configLigacoes);
 		
-		var ctx = document.getElementById("myChart4").getContext("2d");
-		var myChart4 = new Chart(ctx, config);
+		var ctxConversao = document.getElementById("myChart4").getContext("2d");
+		var myChart4 = new Chart(ctxConversao, configConversao);
+});
+		
 </script>
