@@ -21,6 +21,7 @@ import br.com.opus.opussolutionsapp.dao.ClienteDao;
 import br.com.opus.opussolutionsapp.dao.SeguroDao;
 import br.com.opus.opussolutionsapp.dao.TipoSeguroDao;
 import br.com.opus.opussolutionsapp.entity.Cliente;
+import br.com.opus.opussolutionsapp.entity.FileModel;
 import br.com.opus.opussolutionsapp.entity.Seguro;
 
 
@@ -63,7 +64,8 @@ public class SeguroController {
 
   @PostMapping("/seguro/form")
   public String save(@Valid @ModelAttribute("seguro") Seguro seguro,
-      @ModelAttribute("tipoSeguro") String tipoSeguro, BindingResult errors, SessionStatus status,
+      @ModelAttribute("tipoSeguro") String tipoSeguro, @ModelAttribute("proposta") FileModel proposta, 
+      @ModelAttribute("apolice") FileModel apolice,  BindingResult errors, SessionStatus status,
       Pageable pageable) {
     seguro.setCliente(new Cliente());
     if (errors.hasErrors()) {
