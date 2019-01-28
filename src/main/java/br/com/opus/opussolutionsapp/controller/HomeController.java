@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import br.com.opus.opussolutionsapp.dao.HomeInfo;
 import br.com.opus.opussolutionsapp.dto.Evolution;
+import br.com.opus.opussolutionsapp.dto.SeguroPorSeguradora;
+import br.com.opus.opussolutionsapp.entity.Seguro;
 
 @Controller
 public class HomeController {
@@ -27,9 +29,14 @@ public class HomeController {
 
   @GetMapping("/")
   public String homePage(HttpSession session) {
-    File file = new File("src/main/resources/static/json/evolution.json"); 
-    file.delete();
+    File fileEvolution = new File("src/main/resources/static/json/evolution.json"); 
+    fileEvolution.delete();
     readJsonEvolution();
+    
+    File fileSeguroPorSeguradora = new File("src/main/resources/static/json/seguroPorSeguradora.json"); 
+    fileSeguroPorSeguradora.delete();
+    readJsonSegurosPorSeguradora();
+    
     session.setAttribute("qtdSeguros", homeInfo.obterTotalSeguros());
     session.setAttribute("qtdSegurosThisMonth", homeInfo.obterTotalSegurosDesteMes());
     session.setAttribute("qtdRenovacoesThisMonth", homeInfo.obterTotalRenovacoesDesteMes());
@@ -69,22 +76,50 @@ public class HomeController {
       e.printStackTrace();
     }
   }
+  
+  @SuppressWarnings("unchecked")
+  public void readJsonSegurosPorSeguradora() {
+    try {
 
+      List<SeguroPorSeguradora> result = new ArrayList<>();
+      JSONArray listJson = new JSONArray();
 
+      result =  homeInfo.obterTotaisPorSeguradora();
 
-  public static void writeJsonSimpleDemo(String filename) throws Exception {
-    JSONObject sampleObject = new JSONObject();
-    sampleObject.put("name", "Stackabuser");
-    sampleObject.put("age", 35);
+      for (SeguroPorSeguradora item : result) {
+        JSONObject objJson = new JSONObject();
 
-    JSONArray messages = new JSONArray();
-    messages.add("Hey!");
-    messages.add("What's up?!");
+        objJson.put("name", item.getSeguradora());
+        objJson.put("value", item.getTotal());
+        objJson.put("background", item.getCollor());
+                
+        listJson.add(objJson);
+      }
 
-    sampleObject.put("messages", messages);
-    Files.write(Paths.get(filename), sampleObject.toJSONString().getBytes());
+      FileWriter file = new FileWriter("src/main/resources/static/json/seguroPorSeguradora.json");
+        
+        file.write(listJson.toJSONString());
+        file.flush();
+        
+        System.out.println(listJson.toJSONString());
+
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
-
+//  public static void writeJsonSimpleDemo(String filename) throws Exception {
+//    JSONObject sampleObject = new JSONObject();
+//    sampleObject.put("name", "Stackabuser");
+//    sampleObject.put("age", 35);
+//
+//    JSONArray messages = new JSONArray();
+//    messages.add("Hey!");
+//    messages.add("What's up?!");
+//
+//    sampleObject.put("messages", messages);
+//    Files.write(Paths.get(filename), sampleObject.toJSONString().getBytes());
+//  }
 
 }
