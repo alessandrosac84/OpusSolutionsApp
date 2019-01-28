@@ -25,8 +25,7 @@ public class FileModel {
     
     public FileModel(){}
     
-    public FileModel(long id, String name, String type, byte[] pic){
-        this.id = id;
+    public FileModel(String name, String type, byte[] pic){
         this.name = name;
         this.type = type;
         this.pic = pic;

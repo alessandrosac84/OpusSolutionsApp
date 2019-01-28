@@ -1,7 +1,9 @@
 package br.com.opus.opussolutionsapp.controller;
 
+import java.io.IOException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -64,9 +66,9 @@ public class SeguroController {
 
   @PostMapping("/seguro/form")
   public String save(@Valid @ModelAttribute("seguro") Seguro seguro,
-      @ModelAttribute("tipoSeguro") String tipoSeguro, @ModelAttribute("proposta") FileModel proposta, 
-      @ModelAttribute("apolice") FileModel apolice,  BindingResult errors, SessionStatus status,
-      Pageable pageable) {
+      @ModelAttribute("tipoSeguro") String tipoSeguro, @ModelAttribute("fileProposta") String fileProposta, 
+      @ModelAttribute("fileApolice") String fileApolice,  BindingResult errors, SessionStatus status,
+      Pageable pageable) throws IOException {
     seguro.setCliente(new Cliente());
     if (errors.hasErrors()) {
       return "seguro/form";
@@ -81,6 +83,23 @@ public class SeguroController {
     }
 
     seguro.setTipoSeguro(tipoSeguroDao.findByNome(tipoSeguro));
+    
+    if(fileProposta != null) {
+      ClassPathResource filePropostaUpload = new ClassPathResource(fileProposta);
+      byte[] arrayData = new byte[(int) filePropostaUpload.contentLength()];
+      filePropostaUpload.getInputStream().read(arrayData);
+      FileModel proposta = new FileModel("proposta", "pdf", arrayData);
+      seguro.setProposta(proposta);
+    }
+    
+    if(fileApolice != null) {
+      ClassPathResource fileApoliceUpload = new ClassPathResource(fileApolice);
+      byte[] arrayData = new byte[(int) fileApoliceUpload.contentLength()];
+      fileApoliceUpload.getInputStream().read(arrayData);
+      FileModel apolice = new FileModel("apolice", "pdf", arrayData);
+      seguro.setApolice(apolice);
+    }
+    
 
     if(seguro.getCliente() == null) {
       errors.addError(new ObjectError("ClienteNotFound", "Cliente não existe"));

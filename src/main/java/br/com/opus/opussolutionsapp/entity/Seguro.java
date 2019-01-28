@@ -88,6 +88,12 @@ public class Seguro {
     @Size(max = 255)
     @Column(nullable = true)
     private String seguradora;
+    
+    @Transient
+    private String fileProposta;
+    
+    @Transient
+    private String fileApolice;
 
 	public String getId() {
 		return id;
@@ -225,5 +231,19 @@ public class Seguro {
 		this.seguradora = seguradora;
 	}
     
-
+    public String getFileProposta() {
+      return fileProposta;
+    }
+  
+    public void setFileProposta(String fileProposta) {
+        this.fileProposta = fileProposta;
+    }
+    
+    public String getFileApolice() {
+      return fileApolice;
+    }
+  
+    public void setFileApolice(String fileApolice) {
+      this.fileApolice = fileApolice;
+    }
 }
