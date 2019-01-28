@@ -1,9 +1,8 @@
 package br.com.opus.opussolutionsapp.controller;
 
-import java.io.IOException;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -18,13 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import br.com.opus.opussolutionsapp.dao.ClienteDao;
 import br.com.opus.opussolutionsapp.dao.SeguroDao;
 import br.com.opus.opussolutionsapp.dao.TipoSeguroDao;
 import br.com.opus.opussolutionsapp.entity.Cliente;
 import br.com.opus.opussolutionsapp.entity.FileModel;
 import br.com.opus.opussolutionsapp.entity.Seguro;
+import br.com.opus.opussolutionsapp.util.Util;
 
 
 @Controller
@@ -37,6 +39,9 @@ public class SeguroController {
 
   @Autowired
   private TipoSeguroDao tipoSeguroDao;
+  
+  @Autowired 
+  private Util util;
 
   private Cliente cliente;
 
@@ -66,9 +71,9 @@ public class SeguroController {
 
   @PostMapping("/seguro/form")
   public String save(@Valid @ModelAttribute("seguro") Seguro seguro,
-      @ModelAttribute("tipoSeguro") String tipoSeguro, @ModelAttribute("fileProposta") String fileProposta, 
-      @ModelAttribute("fileApolice") String fileApolice,  BindingResult errors, SessionStatus status,
-      Pageable pageable) throws IOException {
+      @ModelAttribute("tipoSeguro") String tipoSeguro, @RequestParam("fileProp") MultipartFile fileProposta, 
+      @RequestParam("fileApo") MultipartFile fileApolice,  BindingResult errors, SessionStatus status,
+      Pageable pageable) throws Exception {
     seguro.setCliente(new Cliente());
     if (errors.hasErrors()) {
       return "seguro/form";
@@ -85,19 +90,15 @@ public class SeguroController {
     seguro.setTipoSeguro(tipoSeguroDao.findByNome(tipoSeguro));
     
     if(fileProposta != null) {
-      ClassPathResource filePropostaUpload = new ClassPathResource(fileProposta);
-      byte[] arrayData = new byte[(int) filePropostaUpload.contentLength()];
-      filePropostaUpload.getInputStream().read(arrayData);
-      FileModel proposta = new FileModel("proposta", "pdf", arrayData);
-      seguro.setProposta(proposta);
+    	FileModel upProposta = new FileModel();
+    	upProposta = util.storeFile(fileProposta);
+    	seguro.setProposta(upProposta);
     }
     
     if(fileApolice != null) {
-      ClassPathResource fileApoliceUpload = new ClassPathResource(fileApolice);
-      byte[] arrayData = new byte[(int) fileApoliceUpload.contentLength()];
-      fileApoliceUpload.getInputStream().read(arrayData);
-      FileModel apolice = new FileModel("apolice", "pdf", arrayData);
-      seguro.setApolice(apolice);
+    	FileModel upApolice = new FileModel();
+    	upApolice = util.storeFile(fileApolice);
+    	seguro.setApolice(upApolice);
     }
     
 

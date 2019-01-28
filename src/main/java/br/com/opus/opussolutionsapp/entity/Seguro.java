@@ -1,5 +1,6 @@
 package br.com.opus.opussolutionsapp.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,11 +37,11 @@ public class Seguro {
     @JoinColumn(name = "tipo_seguroFK")
     private TipoSeguro tipoSeguro;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(optional=true, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "propostaFK")
     private FileModel proposta;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(optional=true, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "apoliceFK")
     private FileModel apolice;
     
@@ -88,12 +89,6 @@ public class Seguro {
     @Size(max = 255)
     @Column(nullable = true)
     private String seguradora;
-    
-    @Transient
-    private String fileProposta;
-    
-    @Transient
-    private String fileApolice;
 
 	public String getId() {
 		return id;
@@ -230,20 +225,4 @@ public class Seguro {
 	public void setSeguradora(String seguradora) {
 		this.seguradora = seguradora;
 	}
-    
-    public String getFileProposta() {
-      return fileProposta;
-    }
-  
-    public void setFileProposta(String fileProposta) {
-        this.fileProposta = fileProposta;
-    }
-    
-    public String getFileApolice() {
-      return fileApolice;
-    }
-  
-    public void setFileApolice(String fileApolice) {
-      this.fileApolice = fileApolice;
-    }
 }

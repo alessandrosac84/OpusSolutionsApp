@@ -226,7 +226,7 @@
 <!-- 							</select>  -->
 <!-- 		    </form> -->
                 
-                <form role="form" th:object="${seguro}" method="post">
+                <form role="form" th:object="${seguro}" method="post" enctype="multipart/form-data">
                               
                     <div class="box-body">
 <!--                             <div class="input-group input-group-sm" style="width: 250px;"> -->
@@ -398,13 +398,15 @@
                         </div>
                         
                         <div class="form-group">
-							<label class="control-label" for="fileProposta">Upload Proposta:</label>
-							<input type="file" th:field="*{fileProposta}" class="form-control" id="fileProposta" placeholder="Upload Proposta"  name="fileProposta"></input>
+							<label class="control-label">Upload Proposta:</label>
+<!-- 							<input type="file" th:field="*{fileProposta}" class="form-control" id="fileProposta" placeholder="Upload Proposta"  name="fileProposta"></input> -->
+						    <input type="file" name="fileProp" />
 						</div>
 						
 						<div class="form-group">
-							<label class="control-label" for="fileApolice">Upload Apólice:</label>
-							<input type="file" th:field="*{fileApolice}" class="form-control" id="fileApolice" placeholder="Upload Apolice"  name="fileApolice"></input>
+							<label class="control-label">Upload Apólice:</label>
+<!-- 							<input type="file" th:field="*{fileApolice}" class="form-control" id="fileApolice" placeholder="Upload Apolice"  name="fileApolice"></input> -->
+ 							<input type="file" name="fileApo" />
 						</div>
                         
                         <div class="form-group">
