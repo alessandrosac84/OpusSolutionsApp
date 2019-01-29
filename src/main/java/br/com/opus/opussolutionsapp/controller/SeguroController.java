@@ -1,11 +1,15 @@
 package br.com.opus.opussolutionsapp.controller;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import br.com.opus.opussolutionsapp.dao.ClienteDao;
 import br.com.opus.opussolutionsapp.dao.SeguroDao;
 import br.com.opus.opussolutionsapp.dao.TipoSeguroDao;
+import br.com.opus.opussolutionsapp.dao.impl.FileModelImpl;
 import br.com.opus.opussolutionsapp.entity.Cliente;
 import br.com.opus.opussolutionsapp.entity.FileModel;
 import br.com.opus.opussolutionsapp.entity.Seguro;
@@ -39,6 +43,9 @@ public class SeguroController {
 
   @Autowired
   private TipoSeguroDao tipoSeguroDao;
+  
+  @Autowired
+  private FileModelImpl fileModelImpl;
   
   @Autowired 
   private Util util;
@@ -123,6 +130,28 @@ public class SeguroController {
   @GetMapping("/seguro/edit")
   public ModelMap edit(@RequestParam(value = "id", required = true) Seguro seguro) {
     return new ModelMap("seguro", seguro);
+  }
+  
+  @GetMapping("/seguro/proposta")
+  public ResponseEntity<Resource> downloadProposta(@RequestParam(value = "id", required = true) String id) {
+    // Load file from database
+    FileModel file = fileModelImpl.getFile(id);
+
+    return ResponseEntity.ok()
+            .contentType(MediaType.parseMediaType(file.getType()))
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+            .body(new ByteArrayResource(file.getData()));
+  }
+  
+  @GetMapping("/seguro/apolice")
+  public ResponseEntity<Resource> downloadApolice(@RequestParam(value = "id", required = true) String id) {
+ // Load file from database
+    FileModel file = fileModelImpl.getFile(id);
+
+    return ResponseEntity.ok()
+            .contentType(MediaType.parseMediaType(file.getType()))
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+            .body(new ByteArrayResource(file.getData()));
   }
 
   @PostMapping("/seguro/edit")
