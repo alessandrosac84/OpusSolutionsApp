@@ -1,20 +1,14 @@
 <!--/* Thymeleaf templating engine, Each token will be replaced by their respective titles in the resulting page. */-->
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
 <head>
-    <title>Lista Endereços</title>
-
-    <style>
-        .noWrapColumn {
-            white-space: nowrap !important;
-        }
-    </style>
+    <title>Ligações</title>
 </head>
 <body>
 <div layout:fragment="breadcrumb">
-    <h1>Lista de Endereços</h1>
+    <h1>Lista de Ligações</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Lista de Endereços</li>
+        <li class="active">Lista de Ligações</li>
     </ol>
 </div>
 <div layout:fragment="content">
@@ -22,16 +16,17 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <a class="box-title btn btn-primary" th:href="@{/endereco/form}">Adicionar Endereço</a>
+                    <a class="box-title btn btn-primary" th:href="@{/ligacao/form}">Adicionar Cliente</a>
+
+
                     <div class="box-tools">
-                        <form id="form" action="#" method="get" th:action="@{/endereco/list}">
+                        <form th:action="@{/ligacao/list}" method="get">
                             <div class="input-group input-group-sm" style="width: 250px;">
                                 <input type="text" name="value" class="form-control pull-right"
-                                       placeholder="Pesquisa baseada em componentes da atividade" th:if="${key} == null"/>
+                                       placeholder="Pesquisa por Nome" th:if="${key} == null"/>
                                 <input type="text" name="value" class="form-control pull-right"
-                                       placeholder="Pesquisa baseada em componentes da atividade" th:if="${key} != null"
+                                       placeholder="Pesquisa por Nome" th:if="${key} != null"
                                        th:value="${key}"/>
-                                <input type="hidden" name="mode" id="mode"/>
                                 <div class="input-group-btn">
                                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                                 </div>
@@ -40,6 +35,7 @@
                     </div>
                 </div>
 
+
                 <!-- /.box-header -->
                 <div class="box-body">
                     Show <span sd:page-size-selector="javascript"></span> entries
@@ -47,35 +43,36 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
-
                             <tr>
-                                <th>Numero</th>
-                                <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="nome">Categoria
-                                    Nome</th>
-                                <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="nama">Nome</th>
-                                <th><a class="fa fa-fw fa-sort"><a class="sorted" sd:pagination-sort="endereco">Endereço
-                                </th>
-
+                                <th> No</th>
+                                <th><a class="fa fa-fw fa-sort"></a><a class="sorted" sd:pagination-sort="nome">Nome</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Telefone</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Status</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Data Contato</a>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Data Retorno</a></th>
+                                <th><a class="fa fa-fw fa-sort"></a><a>Observação</a></th>
                                 <th>&nbsp;</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="endereco,iter : ${data}">
-                                <td th:text="${iter.count}">1</td>
-                                <td th:text="${endereco.empregado.nome}">jenis kegiatan 1</td>
-                                <td th:text="${endereco.nome}">keterangan jenis kegiatan 1</td>
-                                <td th:text="${endereco.endereco}">keterangan jenis kegiatan 1</td>
-
+                            <tr th:each="st,iter : ${ligacao}">
+                                <td th:text="${iter.count}"></td>
+                                <td th:text="${st.nome}"></td>
+                                <td th:text="${st.telefone}"></td>
+                                <td th:text="${st.status}"></td>
+                                <td th:text="${st.dataContato}"></td>
+                                <td th:text="${st.dataRetorno}"></td>
+                                <td th:text="${st.observacao}"></td>
                                 <td>
-                                    <a href="#" class="btn btn-default" th:href="@{/endereco/form(id=${endereco.id})}"
-                                       title="Edit Data"><span class="glyphicon glyphicon-edit"></span></a>
-                                    <a href="#" class="btn btn-default" th:href="@{/endereco/delete(id=${endereco.id})}"
-                                       title="Delete data"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="#" class="btn btn-default"
+                                       th:href="@{/ligacao/edit(id=${st.id})}"
+                                       title="Editar Dados"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <a href="#" class="btn btn-default" th:href="@{/ligacao/delete(id=${st.id})}"
+                                       title="Deletar Dados"><span class="glyphicon glyphicon-trash"></span></a>
                                 </td>
                             </tr>
-
-                            <tr th:if="${#lists.isEmpty(data.content)}">
-                                <td colspan="13" class="text-center">Data alamat tidak ditemukan</td>
+                            <tr th:if="${#lists.isEmpty(ligacao.content)}">
+                                <td colspan="13" class="text-center">Dados do cliente não encontrados</td>
                             </tr>
                             </tbody>
                         </table>
@@ -83,9 +80,9 @@
                 </div>
 
 
-                <div th:if="${not #lists.isEmpty(data.content)}">
-                    <div sd:pagination-summary="">info</div>
+                <div th:if="${not #lists.isEmpty(ligacao.content)}">
 
+                    <div sd:pagination-summary="">info</div>
                     <div class="text-center">
                         <nav>
                             <ul class="pagination" sd:pagination="full">
@@ -97,6 +94,7 @@
                         </nav>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

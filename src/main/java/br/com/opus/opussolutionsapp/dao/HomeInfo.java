@@ -64,29 +64,29 @@ public class HomeInfo {
 	  }
   
   public Integer obterTotalRenovacoesDesteMes() {
-	    
+
 	    Integer result;
 	    String mesAno = "";
-	    
+
 		Calendar cal = Calendar.getInstance();
-		
-		
+
+
 		if(cal.get(Calendar.MONTH) < 10) {
-			mesAno = String.valueOf(String.valueOf("0").concat(String.valueOf(cal.get(Calendar.MONTH) +1)).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR))));	
+			mesAno = String.valueOf(String.valueOf("0").concat(String.valueOf(cal.get(Calendar.MONTH) +1)).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR))));
 		}else {
 			mesAno = String.valueOf(cal.get(Calendar.MONTH) +1).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR)));
 		}
-		
+
 		Object[] parameters = new Object[] {new String(mesAno)};
-	    
+
 	    try {
 	      String query =
 	        "SELECT count(*) FROM seguro s WHERE right(s.data_fim_vigencia,7)= ? AND status = 'EMITIDO'" ;
-	      
+
 	       result = template.queryForObject(query, parameters, Integer.class);
-	       
+
 	       return (result != null ? result : 0);
-	      
+
 	    } catch (Exception e) {
 	      return 9999;
 	    }
@@ -329,4 +329,121 @@ public List<SeguroPorSeguradora> obterTotaisPorSeguradora(){
     
     return returnList;
   }
+
+
+    public Integer obterTotalLigacoesDesteMes() {
+
+        Integer result;
+        String mesAno = "";
+
+        Calendar cal = Calendar.getInstance();
+
+
+        if(cal.get(Calendar.MONTH) < 10) {
+            mesAno = String.valueOf(String.valueOf("0").concat(String.valueOf(cal.get(Calendar.MONTH) +1)).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR))));
+        }else {
+            mesAno = String.valueOf(cal.get(Calendar.MONTH) +1).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR)));
+        }
+
+        Object[] parameters = new Object[] {new String(mesAno)};
+
+        try {
+            String query =
+                    "SELECT count(*) FROM ligacao s WHERE right(s.data_contato,7)= ? " ;
+
+            result = template.queryForObject(query, parameters, Integer.class);
+
+            return (result != null ? result : 0);
+
+        } catch (Exception e) {
+            return 9999;
+        }
+    }
+
+    public Integer obterTotalConversoesDesteMes() {
+
+        Integer result;
+        String mesAno = "";
+
+        Calendar cal = Calendar.getInstance();
+
+
+        if(cal.get(Calendar.MONTH) < 10) {
+            mesAno = String.valueOf(String.valueOf("0").concat(String.valueOf(cal.get(Calendar.MONTH) +1)).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR))));
+        }else {
+            mesAno = String.valueOf(cal.get(Calendar.MONTH) +1).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR)));
+        }
+
+        Object[] parameters = new Object[] {new String(mesAno)};
+
+        try {
+            String query =
+                    "SELECT count(*) FROM ligacao s WHERE right(s.data_contato,7)= ? AND status  = 'CONVERTIDO'" ;
+
+            result = template.queryForObject(query, parameters, Integer.class);
+
+            return (result != null ? result : 0);
+
+        } catch (Exception e) {
+            return 9999;
+        }
+    }
+
+    public Integer obterTotalOrcadosDesteMes() {
+
+        Integer result;
+        String mesAno = "";
+
+        Calendar cal = Calendar.getInstance();
+
+
+        if(cal.get(Calendar.MONTH) < 10) {
+            mesAno = String.valueOf(String.valueOf("0").concat(String.valueOf(cal.get(Calendar.MONTH) +1)).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR))));
+        }else {
+            mesAno = String.valueOf(cal.get(Calendar.MONTH) +1).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR)));
+        }
+
+        Object[] parameters = new Object[] {new String(mesAno)};
+
+        try {
+            String query =
+                    "SELECT count(*) FROM ligacao s WHERE right(s.data_contato,7)= ? AND orcado  = 'SIM'" ;
+
+            result = template.queryForObject(query, parameters, Integer.class);
+
+            return (result != null ? result : 0);
+
+        } catch (Exception e) {
+            return 9999;
+        }
+    }
+
+    public Integer obterTotalFechadosDesteMes() {
+
+        Integer result;
+        String mesAno = "";
+
+        Calendar cal = Calendar.getInstance();
+
+
+        if(cal.get(Calendar.MONTH) < 10) {
+            mesAno = String.valueOf(String.valueOf("0").concat(String.valueOf(cal.get(Calendar.MONTH) +1)).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR))));
+        }else {
+            mesAno = String.valueOf(cal.get(Calendar.MONTH) +1).concat("/").concat(String.valueOf(cal.get(Calendar.YEAR)));
+        }
+
+        Object[] parameters = new Object[] {new String(mesAno)};
+
+        try {
+            String query =
+                    "SELECT count(*) FROM ligacao s WHERE right(s.data_contato,7)= ? AND fechado  = 'SIM'" ;
+
+            result = template.queryForObject(query, parameters, Integer.class);
+
+            return (result != null ? result : 0);
+
+        } catch (Exception e) {
+            return 9999;
+        }
+    }
 }

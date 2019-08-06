@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+
+import br.com.opus.opussolutionsapp.dto.Indicadores;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -36,12 +38,16 @@ public class HomeController {
     File fileSeguroPorSeguradora = new File("src/main/resources/static/json/seguroPorSeguradora.json"); 
     fileSeguroPorSeguradora.delete();
     readJsonSegurosPorSeguradora();
+
+    File fileIndicadores = new File("src/main/resources/static/json/indicadores.json");
+    fileIndicadores.delete();
+    readJsonindicadores();
     
     session.setAttribute("qtdSeguros", homeInfo.obterTotalSeguros());
     session.setAttribute("qtdSegurosThisMonth", homeInfo.obterTotalSegurosDesteMes());
     session.setAttribute("qtdRenovacoesThisMonth", homeInfo.obterTotalRenovacoesDesteMes());
     session.setAttribute("qtdLost", homeInfo.obterTotalPerdasDesteMes());
-    
+
     return "home";
   }
 
@@ -109,17 +115,63 @@ public class HomeController {
     }
   }
 
-//  public static void writeJsonSimpleDemo(String filename) throws Exception {
-//    JSONObject sampleObject = new JSONObject();
-//    sampleObject.put("name", "Stackabuser");
-//    sampleObject.put("age", 35);
-//
-//    JSONArray messages = new JSONArray();
-//    messages.add("Hey!");
-//    messages.add("What's up?!");
-//
-//    sampleObject.put("messages", messages);
-//    Files.write(Paths.get(filename), sampleObject.toJSONString().getBytes());
-//  }
+  @SuppressWarnings("unchecked")
+  public void readJsonindicadores() {
+    try {
 
+      Integer resultLigacoes = 0;
+      Integer resultConversoes = 0;
+      Integer resultOrcado = 0;
+      Integer resultFechado = 0;
+      JSONArray listJson = new JSONArray();
+
+      resultLigacoes =  homeInfo.obterTotalLigacoesDesteMes();
+      resultConversoes = homeInfo.obterTotalConversoesDesteMes();
+      resultOrcado = homeInfo.obterTotalOrcadosDesteMes();
+      resultFechado = homeInfo.obterTotalFechadosDesteMes();
+
+      if(resultLigacoes != null){
+        JSONObject objJson = new JSONObject();
+        objJson.put("valor", resultLigacoes);
+        objJson.put("name", "Ligações");
+
+        listJson.add(objJson);
+      }
+
+      if(resultConversoes != null){
+        JSONObject objJson = new JSONObject();
+        objJson.put("valor", resultConversoes);
+        objJson.put("name", "Taxa de Conversão");
+
+        listJson.add(objJson);
+      }
+
+      if(resultOrcado != null){
+        JSONObject objJson = new JSONObject();
+        objJson.put("valor", resultOrcado);
+        objJson.put("name", "Orçamentos");
+
+        listJson.add(objJson);
+      }
+
+      if(resultFechado != null){
+        JSONObject objJson = new JSONObject();
+        objJson.put("valor", resultFechado);
+        objJson.put("name", "Vendas");
+
+        listJson.add(objJson);
+      }
+
+      FileWriter file = new FileWriter("src/main/resources/static/json/indicadores.json");
+
+      file.write(listJson.toJSONString());
+      file.flush();
+
+      System.out.println(listJson.toJSONString());
+
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 }

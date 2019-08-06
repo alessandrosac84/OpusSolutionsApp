@@ -40,10 +40,10 @@ public class Empregado {
     @Column(nullable = false)
     private String info;
 
-    @OneToMany(mappedBy = "empregado",
-            cascade = CascadeType.REFRESH,
-            orphanRemoval = true)
-    private List<Endereco> listEndereco = new ArrayList<>();
+//    @OneToMany(mappedBy = "empregado",
+//            cascade = CascadeType.REFRESH,
+//            orphanRemoval = true)
+//    private List<Endereco> listEndereco = new ArrayList<>();
 
 	public String getId() {
 		return id;
@@ -68,13 +68,13 @@ public class Empregado {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-
-	public List<Endereco> getListEndereco() {
-		return listEndereco;
-	}
-
-	public void setListEndereco(List<Endereco> listEndereco) {
-		this.listEndereco = listEndereco;
-	}
+//
+//	public List<Endereco> getListEndereco() {
+//		return listEndereco;
+//	}
+//
+//	public void setListEndereco(List<Endereco> listEndereco) {
+//		this.listEndereco = listEndereco;
+//	}
 
 }

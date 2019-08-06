@@ -363,7 +363,6 @@
                     	<li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/tipoSeguro/list}">Tipos de Seguro</a></li>
                     	<li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/seguro/list}">Seguro</a></li>
                         <li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/empregado/list}">Funcionários</a></li>
-                        <li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/endereco/list}">Endereço</a></li>
 
                     </ul>
                 </li>
@@ -376,22 +375,22 @@
                     </a>
 
                     <ul class="treeview-menu">
-                        <li><a th:href="@{/atividade/kbm/list}">Olá</a></li>
+                        <li sec:authorize="hasRole('USER_LOGGED_IN')"><a th:href="@{/ligacao/list}">Ligações</a></li>
 
                     </ul>
                 </li>
 
-                <li class="treeview" id="laporan">
-                    <a href="#"><i class="fa fa-book"></i> <span>Report</span>
-                        <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#">Report 1</a></li>
-                        <li><a href="#">Report 2</a></li>
-                    </ul>
-                </li>
+<!--                <li class="treeview" id="laporan">-->
+<!--                    <a href="#"><i class="fa fa-book"></i> <span>Report</span>-->
+<!--                        <span class="pull-right-container">-->
+<!--                                    <i class="fa fa-angle-left pull-right"></i>-->
+<!--                                </span>-->
+<!--                    </a>-->
+<!--                    <ul class="treeview-menu">-->
+<!--                        <li><a href="#">Report 1</a></li>-->
+<!--                        <li><a href="#">Report 2</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
 
             </ul>
             <!-- /.sidebar-menu -->
